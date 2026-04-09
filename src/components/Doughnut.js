@@ -1,30 +1,36 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AgChartsReact } from "ag-charts-react";
-import { useSelector, useDispatch } from "react-redux";
-import { doughnutAction } from "../redux/actions/doughnutActions";
+import API_BASE from "../config/api";
 
 export default function Doughnut() {
-  const dispatch = useDispatch();
   const [options, setOptions] = useState({});
-  const doughnutData = useSelector((state) => state.doughnutReducer);
-  const dataPresent = useSelector((state) => state.doughnutReducer.dataPresent);
+
   useEffect(() => {
-    if (!dataPresent) {
-      dispatch(doughnutAction());
-    }
-    if (dataPresent) {
-      setOptions({
-        data: doughnutData.doughnutData,
-        series: [
-          {
-            type: "pie",
-            calloutLabelKey: "asset",
-            angleKey: "amount",
-            innerRadiusRatio: 0.7,
-          },
-        ],
-      });
-    }
-  }, [dataPresent, doughnutData.doughnutData, dispatch]);
+    const fetchDoughnutData = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/charts/doughnut`);
+        const result = await res.json();
+
+        console.log("DOUGHNUT API:", result); // debug
+
+        setOptions({
+          data: result,
+          series: [
+            {
+              type: "pie",
+              calloutLabelKey: "asset",
+              angleKey: "amount",
+              innerRadiusRatio: 0.7,
+            },
+          ],
+        });
+      } catch (error) {
+        console.error("Doughnut Chart Error:", error);
+      }
+    };
+
+    fetchDoughnutData();
+  }, []);
+
   return <AgChartsReact options={options} />;
 }

@@ -1,136 +1,133 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { tableAction } from "../redux/actions/tableActions";
 import styled from "styled-components";
-import { useTable, usePagination } from "react-table";
+import API_BASE from "../config/api";
 
 const Styles = styled.div`
   padding: 1rem;
+
   table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
   }
+
   table td,
   table th {
     border: 1px solid #ffb347;
     padding: 8px;
     color: #ffb347;
   }
+
   table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    color: #ffb347;
   }
+
   .pagination {
-    padding: 0.5rem;
+    padding: 1rem;
     text-align: center;
+  }
+
+  button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
   }
 `;
 
-function Table({ columns, data }) {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    prepareRow,
-    page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex },
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState: { pageIndex: 0 },
-    },
-    usePagination
-  );
+export default function PaginationTable() {
+  const [columns, setColumns] = useState([]);
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    setPageSize(2);
-  }, [setPageSize]);
+    const fetchTableData = async () => {
+      try {
+        const [headerRes, dataRes] = await Promise.all([
+          fetch(`${API_BASE}/candidates/headers`),
+          fetch(`${API_BASE}/candidates?page=${page}&limit=3`),
+        ]);
+
+        const headers = await headerRes.json();
+        const result = await dataRes.json();
+
+        console.log("API RESULT:", result);
+
+        // format columns
+        const formattedColumns = headers.map((col) => ({
+          Header: col.header,
+          accessor: col.accessor,
+        }));
+
+        setColumns(formattedColumns);
+
+        // ✅ FIX: use result.data
+        setData(result.data);
+        setTotalPages(result.totalPages);
+      } catch (error) {
+        console.error("Table API Error:", error);
+      }
+    };
+
+    fetchTableData();
+  }, [page]);
 
   return (
-    <>
-      <table {...getTableProps()}>
+    <Styles>
+      <table>
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+          <tr>
+            {columns.map((col, i) => (
+              <th key={i}>{col.Header}</th>
+            ))}
+          </tr>
+        </thead>
+
+        <tbody>
+          {data.map((row, i) => (
+            <tr key={i}>
+              {columns.map((col, j) => (
+                <td key={j}>{row[col.accessor]}</td>
               ))}
             </tr>
           ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
         </tbody>
       </table>
-      {pageOptions.length !== 0 ? (
-        <div className="pagination">
-          <button
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-            style={{ background: "#ffb347", color: "#fff", border: 'none', cursor: 'pointer' }}
-          >
-            {"<"}
-          </button>{" "}
-          <span style={{ color: "#ffb347"}}>
-            <strong>
-            Page{" "} {pageIndex + 1} of {pageOptions.length}
-            </strong>{" "}
-          </span>
-          <button
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-            style={{ background: "#ffb347", color: "#fff", border: 'none', cursor: 'pointer' }}
-          >
-            {">"}
-          </button>{" "}
-        </div>
-      ) : null}
-    </>
-  );
-}
 
-function PaginationTable() {
-  const dispatch = useDispatch();
-  const tableData = useSelector((state) => state.tableReducer);
-  const dataPresent = useSelector((state) => state.tableReducer.dataPresent);
-  const [columns, setColumns] = useState([]);
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    if (!dataPresent) {
-      dispatch(tableAction());
-    }
-  }, [dataPresent, dispatch]);
-  useEffect(() => {
-    if (dataPresent) {
-      setColumns(tableData.tableHeaderData);
-      setData(tableData.candidatesData);
-    }
-  }, [dataPresent, tableData.tableHeaderData, tableData.candidatesData]);
-  return (
-    <Styles>
-      <Table columns={columns} data={data} />
+      {/* 🔥 Backend Pagination */}
+      <div className="pagination">
+        <button
+          onClick={() => setPage((p) => p - 1)}
+          disabled={page === 1}
+          style={{ background: "#ffb347", color: "#fff", border: "none" }}
+        >
+          {"<"}
+        </button>
+
+        {[...Array(totalPages)].map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setPage(i + 1)}
+            style={{
+              background: page === i + 1 ? "#ffb347" : "#fff",
+              color: page === i + 1 ? "#fff" : "#ffb347",
+              border: "1px solid #ffb347",
+            }}
+          >
+            {i + 1}
+          </button>
+        ))}
+
+        <button
+          onClick={() => setPage((p) => p + 1)}
+          disabled={page === totalPages}
+          style={{ background: "#ffb347", color: "#fff", border: "none" }}
+        >
+          {">"}
+        </button>
+      </div>
     </Styles>
   );
 }
-export default PaginationTable;

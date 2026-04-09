@@ -1,29 +1,35 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AgChartsReact } from "ag-charts-react";
-import { useSelector, useDispatch } from "react-redux";
-import { pieAction } from "../redux/actions/pieActions";
+import API_BASE from "../config/api";
 
 export default function Piechart() {
-  const dispatch = useDispatch();
-  const pieData = useSelector((state) => state.pieReducer);
-  const dataPresent = useSelector((state) => state.pieReducer.dataPresent);
   const [options, setOptions] = useState({});
+
   useEffect(() => {
-    if (!dataPresent) {
-      dispatch(pieAction());
-    }
-    if (dataPresent) {
-      setOptions({
-        data: pieData.pieData,
-        series: [
-          {
-            type: "pie",
-            angleKey: "amount",
-            legendItemKey: "asset",
-          },
-        ],
-      });
-    }
-  }, [dataPresent, pieData.pieData, dispatch]);
+    const fetchPieData = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/charts/pie`);
+        const result = await res.json();
+
+        console.log("PIE API:", result); // debug
+
+        setOptions({
+          data: result,
+          series: [
+            {
+              type: "pie",
+              angleKey: "amount",
+              legendItemKey: "asset",
+            },
+          ],
+        });
+      } catch (error) {
+        console.error("Pie Chart Error:", error);
+      }
+    };
+
+    fetchPieData();
+  }, []);
+
   return <AgChartsReact options={options} />;
 }

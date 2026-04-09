@@ -1,45 +1,49 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AgChartsReact } from "ag-charts-react";
-import { useSelector, useDispatch } from "react-redux";
-import { areaAction } from "../redux/actions/areaActions";
+import API_BASE from "../config/api";
 
 export default function Areachart() {
-  const dispatch = useDispatch();
-  const areaData = useSelector((state) => state.areaReducer);
-  const dataPresent = useSelector((state) => state.areaReducer.dataPresent);
   const [options, setOptions] = useState({});
+
   useEffect(() => {
-    if (!dataPresent) {
-      dispatch(areaAction());
-    }
-    if (dataPresent) {
-      setOptions({
-        title: {
-          text: "Sales by Month",
-        },
-        data: areaData.areaData,
-        series: [
-          {
-            type: "area",
-            xKey: "month",
-            yKey: "subscriptions",
-            yName: "Subscriptions",
+    const fetchAreaData = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/charts/area`);
+        const result = await res.json();
+
+        setOptions({
+          title: {
+            text: "Sales by Month",
           },
-          {
-            type: "area",
-            xKey: "month",
-            yKey: "services",
-            yName: "Services",
-          },
-          {
-            type: "area",
-            xKey: "month",
-            yKey: "products",
-            yName: "Products",
-          },
-        ],
-      });
-    }
-  }, [dataPresent, areaData.areaData, dispatch]);
+          data: result,
+          series: [
+            {
+              type: "area",
+              xKey: "month",
+              yKey: "subscriptions",
+              yName: "Subscriptions",
+            },
+            {
+              type: "area",
+              xKey: "month",
+              yKey: "services",
+              yName: "Services",
+            },
+            {
+              type: "area",
+              xKey: "month",
+              yKey: "products",
+              yName: "Products",
+            },
+          ],
+        });
+      } catch (error) {
+        console.error("Area Chart Error:", error);
+      }
+    };
+
+    fetchAreaData();
+  }, []);
+
   return <AgChartsReact options={options} />;
 }
