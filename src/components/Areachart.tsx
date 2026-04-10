@@ -1,15 +1,23 @@
 import { useState, useEffect } from "react";
 import { AgChartsReact } from "ag-charts-react";
+import type { AgChartOptions } from "ag-charts-community";
 import API_BASE from "../config/api";
 
-export default function Areachart() {
-  const [options, setOptions] = useState({});
+type AreaData = {
+  month: string;
+  subscriptions: number;
+  services: number;
+  products: number;
+};
+
+export default function Areachart(): JSX.Element {
+  const [options, setOptions] = useState<AgChartOptions>({});
 
   useEffect(() => {
     const fetchAreaData = async () => {
       try {
         const res = await fetch(`${API_BASE}/charts/area`);
-        const result = await res.json();
+        const result: AreaData[] = await res.json();
 
         setOptions({
           title: {

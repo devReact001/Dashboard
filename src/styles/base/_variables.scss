@@ -1,0 +1,65 @@
+/* ================================
+   COLORS
+================================ */
+
+$bg-main: #0f172a;       // main background
+$bg-card: #1e293b;       // cards
+$bg-soft: #334155;       // borders / dividers
+
+$primary: #6366f1;       // main accent (indigo)
+$secondary: #06b6d4;     // optional accent (cyan)
+$accent: #f59e0b;        // highlight (your orange)
+
+$text-main: #e2e8f0;     // main text
+$text-muted: #94a3b8;    // secondary text
+
+$success: #22c55e;
+$error: #ef4444;
+$warning: #f59e0b;
+
+/* ================================
+   SPACING (8px system)
+================================ */
+
+$space-1: 8px;
+$space-2: 16px;
+$space-3: 24px;
+$space-4: 32px;
+$space-5: 40px;
+
+/* ================================
+   BORDER RADIUS
+================================ */
+
+$radius-sm: 6px;
+$radius-md: 12px;
+$radius-lg: 16px;
+
+/* ================================
+   SHADOWS
+================================ */
+
+$shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.2);
+$shadow-md: 0 6px 20px rgba(0, 0, 0, 0.3);
+$shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+/* ================================
+   TRANSITIONS
+================================ */
+
+$transition-fast: 0.2s ease;
+$transition: 0.3s ease;
+
+/* ================================
+   FONT
+================================ */
+
+$font-family: "Inter", sans-serif;
+
+/* ================================
+   Z-INDEX
+================================ */
+
+$z-sidebar: 100;
+$z-navbar: 200;
+$z-modal: 1000;

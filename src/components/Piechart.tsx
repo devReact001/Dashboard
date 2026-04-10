@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react";
 import { AgChartsReact } from "ag-charts-react";
+import type { AgChartOptions } from "ag-charts-community";
 import API_BASE from "../config/api";
 
-export default function Piechart() {
-  const [options, setOptions] = useState({});
+interface PieData {
+  asset: string;
+  amount: number;
+}
+
+export default function Piechart(): JSX.Element {
+  const [options, setOptions] = useState<AgChartOptions>({});
 
   useEffect(() => {
     const fetchPieData = async () => {
       try {
         const res = await fetch(`${API_BASE}/charts/pie`);
-        const result = await res.json();
+        const result: PieData[] = await res.json();
 
-        console.log("PIE API:", result); // debug
-
-        setOptions({
+        const chartOptions: AgChartOptions = {
           data: result,
           series: [
             {
@@ -22,7 +26,9 @@ export default function Piechart() {
               legendItemKey: "asset",
             },
           ],
-        });
+        };
+
+        setOptions(chartOptions);
       } catch (error) {
         console.error("Pie Chart Error:", error);
       }

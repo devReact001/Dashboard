@@ -1,19 +1,27 @@
 import { useState, useEffect } from "react";
 import { AgChartsReact } from "ag-charts-react";
+import type { AgChartOptions } from "ag-charts-community";
 import API_BASE from "../config/api";
 
-export default function Barchart() {
-  const [options, setOptions] = useState({});
+interface BarChartData {
+  quarter: string;
+  iphone: number;
+  mac: number;
+  ipad: number;
+  wearables: number;
+  services: number;
+}
+
+export default function Barchart(): JSX.Element {
+  const [options, setOptions] = useState<AgChartOptions>({});
 
   useEffect(() => {
     const fetchBarData = async () => {
       try {
         const res = await fetch(`${API_BASE}/charts/bar`);
-        const result = await res.json();
+        const result: BarChartData[] = await res.json();
 
-        console.log("BAR API:", result); // debug
-
-        setOptions({
+        const chartOptions: AgChartOptions = {
           title: {
             text: "Revenue by Product Category",
           },
@@ -53,7 +61,9 @@ export default function Barchart() {
               yName: "Services",
             },
           ],
-        });
+        };
+
+        setOptions(chartOptions);
       } catch (error) {
         console.error("Bar Chart Error:", error);
       }

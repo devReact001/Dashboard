@@ -1,9 +1,20 @@
 import { useState, useEffect } from "react";
 import { AgChartsReact } from "ag-charts-react";
+import type { AgChartOptions } from "ag-charts-community";
 import API_BASE from "../config/api";
 
-export default function Linechart() {
-  const [options, setOptions] = useState({});
+interface SensorData {
+  time: Date;
+  sensor: number;
+}
+
+interface ApiResponse {
+  time: string;
+  sensor: number | string;
+}
+
+export default function Linechart(): JSX.Element {
+  const [options, setOptions] = useState<AgChartOptions>({});
 
   useEffect(() => {
     const fetchLineData = async () => {
@@ -13,22 +24,20 @@ export default function Linechart() {
           fetch(`${API_BASE}/sensor/lounge`),
         ]);
 
-        let officeData = (await officeRes.json()).map((d) => ({
-          ...d,
+        const officeJson: ApiResponse[] = await officeRes.json();
+        const loungeJson: ApiResponse[] = await loungeRes.json();
+
+        const officeData: SensorData[] = officeJson.map((d) => ({
           time: new Date(d.time),
-          sensor: Number(d.sensor)
+          sensor: Number(d.sensor),
         }));
 
-        let loungeData = (await loungeRes.json()).map((d) => ({
-          ...d,
+        const loungeData: SensorData[] = loungeJson.map((d) => ({
           time: new Date(d.time),
-          sensor: Number(d.sensor)
+          sensor: Number(d.sensor),
         }));
 
-        console.log("OFFICE:", officeData);
-        console.log("LOUNGE:", loungeData);
-
-        setOptions({
+        const chartOptions: AgChartOptions = {
           title: {
             text: "Temperature Readings",
           },
@@ -61,7 +70,9 @@ export default function Linechart() {
               },
             },
           ],
-        });
+        };
+
+        setOptions(chartOptions);
       } catch (error) {
         console.error("Line Chart Error:", error);
       }

@@ -1,0 +1,74 @@
+$bg-color: #1e293b;
+$border-radius: 20px;
+$gap: 10px;
+
+@media only screen and (min-width: 1080px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    grid-gap: $gap $gap;
+    background-color: $bg-color;
+    padding: 20px;
+    height: 94vh;
+
+    > div {
+      background-color: rgba(255, 255, 255);
+      border: 1px solid $bg-color;
+      border-radius: $border-radius;
+
+      canvas {
+        border-radius: $border-radius !important;
+      }
+    }
+
+    .item1 {
+      grid-column: 1 / 3;
+      grid-row: 1 / 13;
+    }
+
+    .item2 {
+      grid-column: 3 / 9;
+      grid-row: 1 / 5;
+    }
+
+    .item3 {
+      grid-column: 3 / 9;
+      grid-row: 5 / 9;
+    }
+
+    .item4 {
+      grid-column: 9 / 13;
+      grid-row: 1 / 5;
+    }
+
+    .item6 {
+      grid-column: 9 / 13;
+      grid-row: 5 / 9;
+    }
+
+    .item7 {
+      grid-column: 9 / 13;
+      grid-row: 9 / 13;
+    }
+
+    .item8 {
+      grid-column: 3 / 6;
+      grid-row: 9 / 13;
+    }
+
+    .item9 {
+      grid-column: 6 / 9;
+      grid-row: 9 / 13;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
