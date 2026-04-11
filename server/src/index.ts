@@ -4,7 +4,7 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 
-import sidebarRoutes from "./routes/sideBarRoutes";
+import sidebarRoutes from "./routes/sidebarRoutes";
 import dashboardRoutes from "./routes/dashboardRoutes";
 import chartRoutes from "./routes/chartRoutes";
 import candidateRoutes from "./routes/candidateRoutes";
