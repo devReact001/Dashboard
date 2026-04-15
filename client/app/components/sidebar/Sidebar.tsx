@@ -1,7 +1,6 @@
 import SidebarClient from "./SidebarClient";
 import "./Sidebar.scss";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE!;
+import { fetchWithAuthServer } from "@/lib/api.server";
 
 export type User = {
   id?: number;
@@ -16,19 +15,12 @@ export type Notification = {
 export default async function Sidebar() {
   try {
     const [userRes, notifRes] = await Promise.all([
-      fetch(`${API_BASE}/sidebar`, { cache: "no-store" }),
-      fetch(`${API_BASE}/sidebar/notifications`, {
-        cache: "no-store",
-      }),
+      fetchWithAuthServer(`/sidebar`),
+      fetchWithAuthServer(`/sidebar/notifications`),
     ]);
-
-    const users: User[] = await userRes.json();
-    const notifications: Notification[] = await notifRes.json();
-
-    const user = users[0] || null;
-
+    const user = userRes[0] || null;
     return (
-      <SidebarClient user={user} notifications={notifications} />
+      <SidebarClient user={user} notifications={notifRes} />
     );
   } catch (error) {
     console.error("Sidebar error:", error);

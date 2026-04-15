@@ -1,6 +1,5 @@
+import { fetchWithAuthServer } from "@/lib/api.server";
 import PaginationTableClient from "./PaginationTableClient";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE!;
 
 export type Column = {
   Header: string;
@@ -9,12 +8,8 @@ export type Column = {
 
 export default async function PaginationTable() {
   try {
-    const res = await fetch(`${API_BASE}/candidates/headers`, {
-      cache: "no-store",
-    });
-
     const headers: { header: string; accessor: string }[] =
-      await res.json();
+      await fetchWithAuthServer(`/candidates/headers`);
 
     const columns: Column[] = headers.map((col) => ({
       Header: col.header,

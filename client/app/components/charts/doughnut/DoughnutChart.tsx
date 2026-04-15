@@ -1,6 +1,5 @@
 import DoughnutChartClient from "./DoughnutChartClient";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE!;
+import { fetchWithAuthServer } from "@/lib/api.server";
 
 export interface DoughnutData {
   asset: string;
@@ -9,12 +8,7 @@ export interface DoughnutData {
 
 export default async function DoughnutChart() {
   try {
-    const res = await fetch(`${API_BASE}/charts/doughnut`, {
-      cache: "no-store",
-    });
-
-    const data: DoughnutData[] = await res.json();
-
+    const data: DoughnutData[] = await fetchWithAuthServer(`/charts/doughnut`);
     return <DoughnutChartClient data={data} />;
   } catch (error) {
     console.error("Doughnut Chart Error:", error);

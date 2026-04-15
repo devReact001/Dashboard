@@ -1,6 +1,5 @@
 import LineChartClient from "./LineChartClient";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE!;
+import { fetchWithAuthServer } from "@/lib/api.server";
 
 export interface SensorData {
   time: Date;
@@ -15,19 +14,16 @@ interface ApiResponse {
 export default async function LineChart() {
   try {
     const [officeRes, loungeRes] = await Promise.all([
-      fetch(`${API_BASE}/sensor/office`, { cache: "no-store" }),
-      fetch(`${API_BASE}/sensor/lounge`, { cache: "no-store" }),
+      fetchWithAuthServer(`/sensor/office`),
+      fetchWithAuthServer(`/sensor/lounge`),
     ]);
 
-    const officeJson: ApiResponse[] = await officeRes.json();
-    const loungeJson: ApiResponse[] = await loungeRes.json();
-
-    const officeData: SensorData[] = officeJson.map((d) => ({
+    const officeData: SensorData[] = officeRes.map((d: SensorData) => ({
       time: new Date(d.time),
       sensor: Number(d.sensor),
     }));
 
-    const loungeData: SensorData[] = loungeJson.map((d) => ({
+    const loungeData: SensorData[] = loungeRes.map((d: SensorData) => ({
       time: new Date(d.time),
       sensor: Number(d.sensor),
     }));

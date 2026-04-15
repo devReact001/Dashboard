@@ -1,0 +1,124 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export default function LoginPage() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    try {
+      setLoading(true);
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // 🔥 REQUIRED for cookies
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        alert(json.message || "Login failed");
+        return;
+      }
+
+      // ✅ redirect after login
+      router.push("/dashboard");
+
+      // 🔥 ensure server components re-fetch with cookie
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "#020617",
+      }}
+    >
+      <div
+        style={{
+          width: 350,
+          padding: 30,
+          borderRadius: 12,
+          background: "#0f172a",
+          color: "white",
+        }}
+      >
+        <h2 style={{ marginBottom: 20 }}>Admin Login</h2>
+
+        {/* Email */}
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{
+            width: "100%",
+            padding: 12,
+            marginBottom: 15,
+            borderRadius: 8,
+            border: "none",
+            background: "#1e293b",
+            color: "white",
+          }}
+        />
+
+        {/* Password */}
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={{
+            width: "100%",
+            padding: 12,
+            marginBottom: 20,
+            borderRadius: 8,
+            border: "none",
+            background: "#1e293b",
+            color: "white",
+          }}
+        />
+
+        {/* Button */}
+        <button
+          onClick={handleLogin}
+          disabled={loading}
+          style={{
+            width: "100%",
+            padding: 12,
+            borderRadius: 8,
+            border: "none",
+            background: "#2563eb",
+            color: "white",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+        >
+          {loading ? "Logging in..." : "Login"}
+        </button>
+      </div>
+    </div>
+  );
+}

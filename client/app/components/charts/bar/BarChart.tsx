@@ -1,6 +1,5 @@
 import BarChartClient from "./BarChartClient";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE!;
+import { fetchWithAuthServer } from "@/lib/api.server";
 
 export interface BarChartData {
   quarter: string;
@@ -13,11 +12,7 @@ export interface BarChartData {
 
 export default async function BarChart() {
   try {
-    const res = await fetch(`${API_BASE}/charts/bar`, {
-      cache: "no-store",
-    });
-
-    const data: BarChartData[] = await res.json();
+    const data: BarChartData[] = await fetchWithAuthServer(`/charts/bar`);
 
     return <BarChartClient data={data} />;
   } catch (error) {

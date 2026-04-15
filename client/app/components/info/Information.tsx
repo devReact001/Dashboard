@@ -1,7 +1,6 @@
 import InformationClient from "./InformationClient";
 import "./Information.scss";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE!;
+import { fetchWithAuthServer } from "@/lib/api.server";
 
 export type Stats = {
   active_users: number;
@@ -11,11 +10,7 @@ export type Stats = {
 
 export default async function Information() {
   try {
-    const res = await fetch(`${API_BASE}/dashboard/stats`, {
-      cache: "no-store",
-    });
-
-    const stats: Stats = await res.json();
+    const stats: Stats = await fetchWithAuthServer(`/dashboard/stats`);
 
     return <InformationClient stats={stats} />;
   } catch (error) {

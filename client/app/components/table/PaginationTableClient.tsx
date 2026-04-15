@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import type { Column } from "./PaginationTable";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE!;
+import { fetchWithAuthClient } from "@/lib/api.client";
 
 type RowData = {
   [key: string]: string | number;
@@ -53,12 +52,9 @@ export default function PaginationTableClient({ columns }: Props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          `${API_BASE}/candidates?page=${page}&limit=3`
+        const result: ApiResponse = await fetchWithAuthClient(
+          `/candidates?page=${page}&limit=3`
         );
-
-        const result: ApiResponse = await res.json();
-
         setData(result.data);
         setTotalPages(result.totalPages);
       } catch (error) {

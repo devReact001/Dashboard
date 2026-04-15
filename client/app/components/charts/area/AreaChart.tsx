@@ -1,6 +1,5 @@
 import AreaChartClient from "./AreaChartClient";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE!;
+import { fetchWithAuthServer } from "@/lib/api.server";
 
 export type AreaData = {
   month: string;
@@ -10,13 +9,8 @@ export type AreaData = {
 };
 
 export default async function AreaChart() {
-  try {
-    const res = await fetch(`${API_BASE}/charts/area`, {
-      cache: "no-store",
-    });
-
-    const data: AreaData[] = await res.json();
-
+  try { 
+    const data: AreaData[] = await fetchWithAuthServer(`/charts/area`);
     return <AreaChartClient data={data} />;
   } catch (error) {
     console.error("Area Chart Error:", error);

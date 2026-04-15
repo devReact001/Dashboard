@@ -1,6 +1,5 @@
 import PieChartClient from "./PieChartClient";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE!;
+import { fetchWithAuthServer } from "@/lib/api.server";
 
 export interface PieData {
   asset: string;
@@ -9,12 +8,7 @@ export interface PieData {
 
 export default async function PieChart() {
   try {
-    const res = await fetch(`${API_BASE}/charts/pie`, {
-      cache: "no-store",
-    });
-
-    const data: PieData[] = await res.json();
-
+    const data: PieData[] = await fetchWithAuthServer(`/charts/pie`);
     return <PieChartClient data={data} />;
   } catch (error) {
     console.error("Pie Chart Error:", error);
