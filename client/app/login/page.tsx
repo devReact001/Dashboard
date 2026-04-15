@@ -1,11 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -33,13 +30,10 @@ export default function LoginPage() {
         return;
       }
 
-      // ✅ redirect after login
-      router.push("/dashboard");
-
-      // 🔥 ensure server components re-fetch with cookie
-      router.refresh();
-    } catch (err) {
-      console.error(err);
+      // ✅ FULL RELOAD FIX (avoids Next.js cookie timing issue)
+      window.location.href = "/dashboard";
+    } catch (error) {
+      console.error(error);
       alert("Something went wrong");
     } finally {
       setLoading(false);
