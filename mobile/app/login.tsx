@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const res = await fetch(
-        "http://192.168.0.101:5000/api/auth/login",
+        `${BASE_URL}/api/auth/login`,
         {
           method: "POST",
           headers: {
