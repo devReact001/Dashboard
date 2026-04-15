@@ -29,8 +29,9 @@ router.post("/login", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // 🔥 REQUIRED (HTTPS)
-      sameSite: "none", // 🔥 REQUIRED (cross-domain)
+      secure: true, // production
+      sameSite: "none", // cross-site
+      path: "/",
     });
 
     res.json({
