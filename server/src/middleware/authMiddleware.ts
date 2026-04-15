@@ -6,13 +6,14 @@ export const authMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  const authHeader = req.headers.authorization;
+  // ✅ Get token from cookie OR header
+  const token =
+    req.cookies?.token || // 🔥 for web (cookies)
+    req.headers.authorization?.split(" ")[1]; // 🔥 for mobile
 
-  if (!authHeader) {
+  if (!token) {
     return res.status(401).json({ message: "No token provided" });
   }
-
-  const token = authHeader.split(" ")[1];
 
   try {
     const decoded = jwt.verify(token, "SECRET_KEY");

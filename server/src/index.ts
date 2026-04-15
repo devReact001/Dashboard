@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 
 dotenv.config();
+import cookieParser from "cookie-parser";
 import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes";
@@ -15,9 +16,17 @@ import projectRoutes from "./routes/projectRoutes";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({
-  origin: "*", // or your vercel URL later
-}));
+app.use(cookieParser());
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://dashboard-brown-eta-81.vercel.app", // ✅ YOUR REAL FRONTEND
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/sidebar", sidebarRoutes);
