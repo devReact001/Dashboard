@@ -8,7 +8,10 @@ export async function fetchWithAuthServer(path: string) {
 
   const res = await fetch(`${baseUrl}/api${path}`, {
     headers: {
-      cookie: cookieStore.toString(),
+      Cookie: cookieStore
+        .getAll()
+        .map((c) => `${c.name}=${c.value}`)
+        .join("; "),
     },
     cache: "no-store",
   });
