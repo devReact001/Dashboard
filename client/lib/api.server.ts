@@ -4,7 +4,7 @@ export const fetchWithAuthServer = async (endpoint: string) => {
   const cookieStore = await cookies();
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE}${endpoint}`, // 👉 backend URL
+    `http://localhost:3000/api${endpoint}`, // 👉 backend URL
     {
       headers: {
         Cookie: cookieStore.toString(), // 🔥 THIS IS KEY
@@ -19,5 +19,5 @@ export const fetchWithAuthServer = async (endpoint: string) => {
     throw new Error(json.message || "API failed");
   }
 
-  return json.data ?? json;
+  return json;
 };

@@ -136,6 +136,27 @@
 }
 
 /* =========================
+   LOGOUT BUTTON
+========================= */
+
+.logout-btn {
+  margin-top: 12px;
+  padding: 6px 12px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #dc2626;
+  }
+}
+
+/* =========================
    RESPONSIVE
 ========================= */
 
