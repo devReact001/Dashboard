@@ -1,17 +1,17 @@
 import { cookies } from "next/headers";
 
-export const fetchWithAuthServer = async (endpoint: string) => {
+export async function fetchWithAuthServer(path: string) {
   const cookieStore = await cookies();
 
-  const res = await fetch(
-    `http://localhost:3000/api${endpoint}`, // 👉 backend URL
-    {
-      headers: {
-        Cookie: cookieStore.toString(), // 🔥 THIS IS KEY
-      },
-      cache: "no-store",
-    }
-  );
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+  const res = await fetch(`${baseUrl}/api${path}`, {
+    headers: {
+      cookie: cookieStore.toString(),
+    },
+    cache: "no-store",
+  });
 
   const json = await res.json();
 
