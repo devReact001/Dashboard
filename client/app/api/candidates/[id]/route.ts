@@ -5,9 +5,11 @@ import jwt from "jsonwebtoken";
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params; // 🔥 REQUIRED FIX
+
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
 
@@ -16,8 +18,6 @@ export async function GET(
     }
 
     jwt.verify(token, process.env.JWT_SECRET!);
-
-    const id = params.id;
 
     // ✅ validation (same as Express)
     if (!id || isNaN(Number(id))) {
@@ -40,6 +40,7 @@ export async function GET(
     }
 
     return Response.json(result.rows[0]);
+
   } catch (error) {
     console.error("Candidate Detail Error:", error);
     return Response.json(
