@@ -28,7 +28,11 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://dashboard-brown-eta-81.vercel.app",
+    origin: [
+      "http://localhost:4200", // ✅ Angular
+      "http://localhost:3000", // (optional Next dev)
+      "https://dashboard-brown-eta-81.vercel.app", // Next prod
+    ],
     credentials: true,
   })
 );
