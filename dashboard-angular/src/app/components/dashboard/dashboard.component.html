@@ -1,0 +1,37 @@
+<div class="grid-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <app-cards [stats]="stats"></app-cards>
+
+    <!-- ✅ Replace ONLY charts -->
+    <div class="card">
+      <h4>Area Chart</h4>
+      <app-area-chart></app-area-chart>
+    </div>
+
+    <div class="card">
+      <h4>Line Chart</h4>
+      <app-line-chart></app-line-chart>
+    </div>
+
+    <div class="card">
+      <h4>Bar Chart</h4>
+      <app-bar-chart></app-bar-chart>
+    </div>
+
+    <div class="card">
+      <h4>Pie Chart</h4>
+      <app-pie-chart></app-pie-chart>
+    </div>
+
+    <div class="card">
+      <h4>Doughnut Chart</h4>
+      <app-doughnut-chart></app-doughnut-chart>
+    </div>
+  </div>
+</div>

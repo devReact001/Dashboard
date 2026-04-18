@@ -1,0 +1,19 @@
+<div class="sidebar-card">
+  <h3>Welcome User</h3>
+  <div class="username">{{ user?.name }}</div>
+
+  <div class="datetime">
+    {{ currentDate | date:'short' }}
+  </div>
+
+  <div class="notifications">
+    <h4>Notifications</h4>
+    <ul>
+      <li *ngFor="let n of notifications">
+        {{ n.message }}
+      </li>
+    </ul>
+  </div>
+
+  <button (click)="logout()">Logout</button>
+</div>
