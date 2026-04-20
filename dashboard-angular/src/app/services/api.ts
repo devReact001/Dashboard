@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -6,68 +8,65 @@ import { Injectable } from '@angular/core';
 export class ApiService {
   baseUrl = 'https://dashboard-ni4q.onrender.com/api';
 
+  constructor(private http: HttpClient) {}
+
   getHeaders() {
-    return this.fetch('/candidates/headers');
+    return firstValueFrom(
+      this.http.get(`${this.baseUrl}/candidates/headers`)
+    );
   }
 
   getCandidates(page = 1, limit = 5) {
-    return this.fetch(`/candidates?page=${page}&limit=${limit}`);
+    return firstValueFrom(
+      this.http.get(`${this.baseUrl}/candidates?page=${page}&limit=${limit}`)
+    );
   }
 
   getStats() {
-    return this.fetch('/dashboard/stats');
+    return firstValueFrom(
+      this.http.get(`${this.baseUrl}/dashboard/stats`)
+    );
   }
 
   getSidebar() {
-    return this.fetch('/sidebar');
+    return firstValueFrom(
+      this.http.get(`${this.baseUrl}/sidebar`)
+    );
   }
 
   getNotifications() {
-    return this.fetch('/sidebar/notifications');
+    return firstValueFrom(
+      this.http.get(`${this.baseUrl}/sidebar/notifications`)
+    );
   }
 
   getAreaChart() {
-    return this.fetch('/charts/area');
+    return firstValueFrom(
+      this.http.get(`${this.baseUrl}/charts/area`)
+    );
   }
 
   getBarChart() {
-    return this.fetch('/charts/bar');
+    return firstValueFrom(
+      this.http.get(`${this.baseUrl}/charts/bar`)
+    );
   }
 
   getDoughnutChart() {
-    return this.fetch('/charts/doughnut');
+    return firstValueFrom(
+      this.http.get(`${this.baseUrl}/charts/simple/doughnut`)
+    );
   }
 
   getPieChart() {
-    return this.fetch('/charts/pie');
+    return firstValueFrom(
+      this.http.get(`${this.baseUrl}/charts/simple/pie`)
+    );
   }
 
   getSensor(location: string) {
-    return this.fetch(`/sensor/${location}`);
-  }
-
-  // 🔥 common fetch
-  async fetch(path: string) {
-    const token = localStorage.getItem('token');
-
-    const res = await fetch(`${this.baseUrl}${path}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    let data;
-
-    try {
-      data = await res.json();
-    } catch {
-      throw new Error('Invalid JSON response');
-    }
-
-    if (!res.ok) {
-      throw new Error(data.message || 'API failed');
-    }
-
-    return data;
+    return firstValueFrom(
+      this.http.get(`${this.baseUrl}/sensor/${location}`)
+    );
   }
 }
