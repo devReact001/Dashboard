@@ -1,14 +1,14 @@
-<div class="card">
-  <h4>Active Users</h4>
-  <p>{{ stats?.active_users }}</p>
+<div class="info-card">
+  <span class="card-label">Active Users</span>
+  <span class="card-value">{{ stats?.active_users ?? '—' }}</span>
 </div>
 
-<div class="card">
-  <h4>Total Users</h4>
-  <p>{{ stats?.total_users }}</p>
+<div class="info-card">
+  <span class="card-label">Total Users</span>
+  <span class="card-value">{{ stats?.total_users ?? '—' }}</span>
 </div>
 
-<div class="card">
-  <h4>Applications</h4>
-  <p>{{ stats?.applications }}</p>
+<div class="info-card">
+  <span class="card-label">Applications</span>
+  <span class="card-value">{{ stats?.applications ?? '—' }}</span>
 </div>

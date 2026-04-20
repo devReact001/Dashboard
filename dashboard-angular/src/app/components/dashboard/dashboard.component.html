@@ -6,22 +6,24 @@
 
   <!-- Main -->
   <div class="main">
+    <!-- Stat Cards -->
     <app-cards [stats]="stats"></app-cards>
 
-    <!-- ✅ Replace ONLY charts -->
+    <!-- Charts Row 1 -->
     <div class="card">
       <h4>Area Chart</h4>
       <app-area-chart></app-area-chart>
     </div>
 
     <div class="card">
-      <h4>Line Chart</h4>
-      <app-line-chart></app-line-chart>
-    </div>
-
-    <div class="card">
       <h4>Bar Chart</h4>
       <app-bar-chart></app-bar-chart>
+    </div>
+
+    <!-- Charts Row 2 -->
+    <div class="card">
+      <h4>Line Chart (Sensor)</h4>
+      <app-line-chart></app-line-chart>
     </div>
 
     <div class="card">
@@ -32,6 +34,12 @@
     <div class="card">
       <h4>Doughnut Chart</h4>
       <app-doughnut-chart></app-doughnut-chart>
+    </div>
+
+    <!-- Candidates Table — full width -->
+    <div class="card card-wide">
+      <h4>Candidates</h4>
+      <app-pagination-table></app-pagination-table>
     </div>
   </div>
 </div>

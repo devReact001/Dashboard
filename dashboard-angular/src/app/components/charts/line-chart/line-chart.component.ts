@@ -17,19 +17,31 @@ export class LineChartComponent implements AfterViewInit {
     new Chart('lineChart', {
       type: 'line',
       data: {
-        labels: office.map((d: any) =>
-          new Date(d.time).toLocaleTimeString()
-        ),
+        labels: office.map((d: any) => new Date(d.time).toLocaleTimeString()),
         datasets: [
           {
             label: 'Office',
             data: office.map((d: any) => d.sensor),
+            borderColor: '#3b82f6',
+            tension: 0.4,
+            pointRadius: 3,
           },
           {
             label: 'Lounge',
             data: lounge.map((d: any) => d.sensor),
+            borderColor: '#a78bfa',
+            tension: 0.4,
+            pointRadius: 3,
           },
         ],
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: '#e2e8f0' } } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
+        },
       },
     });
   }

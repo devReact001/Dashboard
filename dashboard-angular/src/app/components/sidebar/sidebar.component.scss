@@ -3,41 +3,124 @@
   border-radius: 20px;
   padding: 20px;
   height: 100%;
-
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+  box-sizing: border-box;
+}
 
+/* Shared block style */
+.sidebar-block {
+  background: #0f172a;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+
+  .block-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+  }
+}
+
+/* Welcome */
+.welcome-block {
   .username {
     background: #3b82f6;
-    padding: 6px 12px;
+    color: white;
+    padding: 6px 14px;
     border-radius: 8px;
-    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+/* Date / Time */
+.datetime-block {
+  .datetime-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: #e2e8f0;
+    letter-spacing: 0.04em;
   }
 
-  .notifications {
+  .datetime-date {
+    font-size: 12px;
+    color: #94a3b8;
+  }
+}
+
+/* Notifications */
+.notif-block {
+  flex: 1;
+  align-items: flex-start;
+  overflow: hidden;
+
+  .notif-list {
+    width: 100%;
+    overflow-y: auto;
+    max-height: 260px;
+
     ul {
       list-style: none;
       padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     li {
-      background: white;
-      color: black;
-      padding: 6px;
-      border-radius: 6px;
-      margin-bottom: 5px;
+      background: #1e293b;
+      color: #cbd5e1;
+      padding: 8px 10px;
+      border-radius: 8px;
       font-size: 12px;
+      text-align: left;
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+
+      &::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        min-width: 6px;
+        background: #3b82f6;
+        border-radius: 50%;
+        margin-top: 4px;
+      }
+
+      &.empty {
+        color: #475569;
+        font-style: italic;
+      }
     }
   }
+}
 
-  button {
-    margin-top: auto;
-    background: red;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
+/* Logout button */
+.logout-btn {
+  margin-top: 4px;
+  padding: 6px 14px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #dc2626;
   }
 }

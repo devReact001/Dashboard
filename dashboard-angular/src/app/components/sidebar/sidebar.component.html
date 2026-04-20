@@ -1,19 +1,26 @@
 <div class="sidebar-card">
-  <h3>Welcome User</h3>
-  <div class="username">{{ user?.name }}</div>
-
-  <div class="datetime">
-    {{ currentDate | date:'short' }}
+  <!-- Welcome -->
+  <div class="sidebar-block welcome-block">
+    <div class="block-label">Welcome User</div>
+    <div class="username">{{ user?.name ?? '—' }}</div>
+    <button class="logout-btn" (click)="logout()">Logout</button>
   </div>
 
-  <div class="notifications">
-    <h4>Notifications</h4>
-    <ul>
-      <li *ngFor="let n of notifications">
-        {{ n.message }}
-      </li>
-    </ul>
+  <!-- Date & Time -->
+  <div class="sidebar-block datetime-block">
+    <div class="block-label">Date &amp; Time</div>
+    <div class="datetime-value">{{ currentDate | date:'shortTime' }}</div>
+    <div class="datetime-date">{{ currentDate | date:'mediumDate' }}</div>
   </div>
 
-  <button (click)="logout()">Logout</button>
+  <!-- Notifications -->
+  <div class="sidebar-block notif-block">
+    <div class="block-label">Notifications</div>
+    <div class="notif-list">
+      <ul>
+        <li *ngFor="let n of notifications">{{ n.message }}</li>
+        <li *ngIf="notifications.length === 0" class="empty">No notifications</li>
+      </ul>
+    </div>
+  </div>
 </div>
