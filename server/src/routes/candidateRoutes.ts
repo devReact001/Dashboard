@@ -18,32 +18,6 @@ router.get("/headers", async (req, res) => {
   }
 });
 
-// candidate detail
-router.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    // ✅ validation
-    if (!id || isNaN(Number(id))) {
-      return res.status(400).json({ message: "Invalid candidate ID" });
-    }
-
-    const result = await pool.query(
-      "SELECT * FROM candidates WHERE id = $1",
-      [id]
-    );
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ message: "Candidate not found" });
-    }
-
-    res.json(result.rows[0]);
-  } catch (error) {
-    console.error("Candidate Detail Error:", error);
-    res.status(500).json({ message: "Failed to fetch candidate" });
-  }
-});
-
 // candidates list (pagination)
 router.get("/", async (req, res) => {
   try {
@@ -82,5 +56,33 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Failed to fetch candidates" });
   }
 });
+
+// candidate detail
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // ✅ validation
+    if (!id || isNaN(Number(id))) {
+      return res.status(400).json({ message: "Invalid candidate ID" });
+    }
+
+    const result = await pool.query(
+      "SELECT * FROM candidates WHERE id = $1",
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "Candidate not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Candidate Detail Error:", error);
+    res.status(500).json({ message: "Failed to fetch candidate" });
+  }
+});
+
+
 
 export default router;

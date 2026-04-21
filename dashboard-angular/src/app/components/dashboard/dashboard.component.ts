@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ApiService } from '../../services/api';
@@ -32,11 +32,15 @@ import { PaginationTableComponent } from '../table/pagination-table.component';
 export class DashboardComponent implements OnInit {
   stats: any;
 
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService,
+    private cdr: ChangeDetectorRef   // ✅ ADD THIS
+  ) {}
 
   async ngOnInit() {
     try {
       this.stats = { ...await this.api.getStats() };
+      this.cdr.detectChanges();       // ✅ force re-render after stats load
     } catch (err) {
       console.error(err);
     }
