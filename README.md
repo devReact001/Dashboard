@@ -97,18 +97,15 @@ PostgreSQL (Supabase)
 
 ## 📁 Project Structure
 
-```
-
 Dashboard/
 │
-├── server/              # Backend (Node.js + Express + PostgreSQL)
-├── dashboard-angular/   # Angular frontend
-├── dashboard-next/      # Next.js frontend
-├── mobile/              # React Native app (Expo)
-│
+├── server/               # Backend (Node.js + Express + PostgreSQL)
+├── dashboard-angular/    # Angular frontend
+├── client/               # Next.js frontend
+├── mobile/               # React Native app (Expo)
 └── README.md
 
-````
+
 
 ---
 
