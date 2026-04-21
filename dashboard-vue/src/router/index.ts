@@ -14,13 +14,11 @@ const router = createRouter({
 
 
 // 🔐 ADD IT HERE (after router creation, before export)
-router.beforeEach((to, from, next) => {
+router.beforeEach((to) => {
   const token = localStorage.getItem("token");
 
   if (to.path !== "/login" && !token) {
-    next("/login");
-  } else {
-    next();
+    return "/login"; // ✅ new way
   }
 });
 

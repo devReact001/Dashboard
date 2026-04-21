@@ -6,15 +6,16 @@ import API from "../services/api";
 const options = ref({});
 
 onMounted(async () => {
-  const res = await API.get("/charts/area");
+  const res = await API.get("/charts/simple/doughnut");
 
   options.value = {
-    title: { text: "Sales by Month" },
     data: res.data,
     series: [
-      { type: "area", xKey: "month", yKey: "subscriptions" },
-      { type: "area", xKey: "month", yKey: "services" },
-      { type: "area", xKey: "month", yKey: "products" },
+      {
+        type: "pie",
+        angleKey: "amount",
+        innerRadiusRatio: 0.7,
+      },
     ],
   };
 });
