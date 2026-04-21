@@ -32,6 +32,7 @@ app.use(
       "http://localhost:4200", // ✅ Angular
       "http://localhost:3000", // (optional Next dev)
       "https://dashboard-brown-eta-81.vercel.app", // Next prod
+      "https://dashboard-xip2.vercel.app", // Angular prod
     ],
     credentials: true,
   })
