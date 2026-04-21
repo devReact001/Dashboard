@@ -16,9 +16,9 @@ export class DoughnutChartComponent implements AfterViewInit {
     new Chart('doughnutChart', {
       type: 'doughnut',
       data: {
-        labels: data.map((d: any) => d.label),
+        labels: data.map((d: any) => d.asset),
         datasets: [{
-          data: data.map((d: any) => d.value),
+          data: data.map((d: any) => d.amount),
           backgroundColor: ['#3b82f6', '#a78bfa', '#34d399', '#fb923c', '#f87171'],
         }],
       },
