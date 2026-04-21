@@ -3,7 +3,6 @@ $card-bg: #1e293b;
 $border-radius: 20px;
 $gap: 10px;
 
-// ── Full-page grid (matches Next.js exactly) ──────────────────────────
 .grid-container {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -13,30 +12,27 @@ $gap: 10px;
   padding: 20px;
   height: 100vh;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: auto;
 }
 
-// ── Grid placement (mirrors Layout.scss item positions) ───────────────
-.item1 { grid-column: 1 / 3;   grid-row: 1 / 13; }   // Sidebar
-.item2 { grid-column: 3 / 9;   grid-row: 1 / 5;  }   // Stats cards
-.item3 { grid-column: 3 / 9;   grid-row: 5 / 9;  }   // Candidates table
-.item4 { grid-column: 9 / 13;  grid-row: 1 / 5;  }   // Area chart
-.item6 { grid-column: 9 / 13;  grid-row: 5 / 9;  }   // Line chart
-.item7 { grid-column: 9 / 13;  grid-row: 9 / 13; }   // Bar chart
-.item8 { grid-column: 3 / 6;   grid-row: 9 / 13; }   // Doughnut chart
-.item9 { grid-column: 6 / 9;   grid-row: 9 / 13; }   // Pie chart
+.item1 { grid-column: 1 / 3;   grid-row: 1 / 13; }
+.item2 { grid-column: 3 / 9;   grid-row: 1 / 5;  }
+.item3 { grid-column: 3 / 9;   grid-row: 5 / 9;  }
+.item4 { grid-column: 9 / 13;  grid-row: 1 / 5;  }
+.item6 { grid-column: 9 / 13;  grid-row: 5 / 9;  }
+.item7 { grid-column: 9 / 13;  grid-row: 9 / 13; }
+.item8 { grid-column: 3 / 6;   grid-row: 9 / 13; }
+.item9 { grid-column: 6 / 9;   grid-row: 9 / 13; }
 
-// ── Cards container (stat cards fill item2 as a flex row) ─────────────
 .item2 {
   display: flex;
   gap: $gap;
 
   app-cards {
-    display: contents; // lets info-cards sit directly in the flex row
+    display: contents;
   }
 }
 
-// ── Shared card style ──────────────────────────────────────────────────
 .card {
   background: $card-bg;
   border-radius: $border-radius;
@@ -46,9 +42,10 @@ $gap: 10px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 
   h4 {
-    margin: 0 0 10px;
+    margin: 0 0 8px;
     font-size: 11px;
     font-weight: 700;
     color: #64748b;
@@ -57,13 +54,30 @@ $gap: 10px;
     flex-shrink: 0;
   }
 
-  canvas {
+  app-area-chart,
+  app-bar-chart,
+  app-line-chart,
+  app-pie-chart,
+  app-doughnut-chart {
+    display: block;
     flex: 1;
     min-height: 0;
+    position: relative;
+
+    div {
+      position: absolute !important;
+      inset: 0;
+    }
+  }
+
+  app-pagination-table {
+    display: block;
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
   }
 }
 
-// ── Responsive fallback ────────────────────────────────────────────────
 @media (max-width: 1079px) {
   .grid-container {
     height: auto;
@@ -76,11 +90,12 @@ $gap: 10px;
   .item6, .item7, .item8, .item9 {
     grid-column: auto;
     grid-row: auto;
+    min-height: 300px;
   }
 
-  .item1 { grid-column: 1 / -1; }
-  .item2 { grid-column: 1 / -1; }
-  .item3 { grid-column: 1 / -1; }
+  .item1 { grid-column: 1 / -1; min-height: auto; }
+  .item2 { grid-column: 1 / -1; min-height: auto; }
+  .item3 { grid-column: 1 / -1; min-height: auto; }
 }
 
 @media (max-width: 640px) {

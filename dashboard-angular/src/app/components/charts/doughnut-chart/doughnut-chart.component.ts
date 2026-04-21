@@ -5,7 +5,7 @@ import { ApiService } from '../../../services/api';
 @Component({
   selector: 'app-doughnut-chart',
   standalone: true,
-  template: `<canvas id="doughnutChart"></canvas>`,
+  template: `<div style="position:relative;width:100%;height:100%;"><canvas id="doughnutChart"></canvas></div>`,
 })
 export class DoughnutChartComponent implements AfterViewInit {
   constructor(private api: ApiService) {}
@@ -24,6 +24,7 @@ export class DoughnutChartComponent implements AfterViewInit {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: { legend: { labels: { color: '#e2e8f0' } } },
       },
     });

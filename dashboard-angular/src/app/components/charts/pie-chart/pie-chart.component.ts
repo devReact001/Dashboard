@@ -5,7 +5,7 @@ import { ApiService } from '../../../services/api';
 @Component({
   selector: 'app-pie-chart',
   standalone: true,
-  template: `<canvas id="pieChart"></canvas>`,
+  template: `<div style="position:relative;width:100%;height:100%;"><canvas id="pieChart"></canvas></div>`,
 })
 export class PieChartComponent implements AfterViewInit {
   constructor(private api: ApiService) {}
@@ -24,6 +24,7 @@ export class PieChartComponent implements AfterViewInit {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: { legend: { labels: { color: '#e2e8f0' } } },
       },
     });

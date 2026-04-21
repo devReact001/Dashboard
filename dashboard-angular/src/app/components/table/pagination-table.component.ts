@@ -53,7 +53,7 @@ export class PaginationTableComponent implements OnInit {
   async loadData() {
     this.loading = true;
     try {
-      const result = await this.api.getCandidates(this.page, 3);
+      const result = await this.api.getCandidates(this.page, 4);
       this.data = [...result.data];          // ✅ spread to new array reference
       this.totalPages = result.totalPages;
     } catch (err) {

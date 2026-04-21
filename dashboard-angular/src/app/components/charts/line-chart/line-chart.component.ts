@@ -5,7 +5,7 @@ import { ApiService } from '../../../services/api';
 @Component({
   selector: 'app-line-chart',
   standalone: true,
-  template: `<canvas id="lineChart"></canvas>`,
+  template: `<div style="position:relative;width:100%;height:100%;"><canvas id="lineChart"></canvas></div>`,
 })
 export class LineChartComponent implements AfterViewInit {
   constructor(private api: ApiService) {}
@@ -37,6 +37,7 @@ export class LineChartComponent implements AfterViewInit {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: { legend: { labels: { color: '#e2e8f0' } } },
         scales: {
           x: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
