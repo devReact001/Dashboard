@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';  // ✅ add ChangeDetectorRef
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api';
 
@@ -24,7 +24,10 @@ export class PaginationTableComponent implements OnInit {
   loading = true;
   error = '';
 
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService,
+    private cdr: ChangeDetectorRef   // ✅ ADD THIS
+  ) {}
 
   async ngOnInit() {
     await this.loadHeaders();
@@ -39,23 +42,26 @@ export class PaginationTableComponent implements OnInit {
         Header: col.header,
         accessor: col.accessor,
       }));
+      this.cdr.detectChanges();      // ✅ force re-render after headers load
     } catch (err) {
       console.error('Table header error:', err);
       this.error = 'Failed to load table headers';
+      this.cdr.detectChanges();
     }
   }
 
   async loadData() {
     this.loading = true;
     try {
-      const result = await this.api.getCandidates(this.page, 5);
-      this.data = result.data;
+      const result = await this.api.getCandidates(this.page, 3);
+      this.data = [...result.data];          // ✅ spread to new array reference
       this.totalPages = result.totalPages;
     } catch (err) {
       console.error('Table data error:', err);
       this.error = 'Failed to load candidates';
     } finally {
       this.loading = false;
+      this.cdr.detectChanges();      // ✅ force re-render after data loads
     }
   }
 
