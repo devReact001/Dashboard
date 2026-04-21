@@ -1,293 +1,181 @@
-# 🚀 Full Stack Dashboard (Next.js + PostgreSQL + TypeScript)
+# 📊 Dashboard Project (Full Stack + Multi-Platform)
 
-A production-ready **full-stack analytics dashboard** built with:
-
-* ⚡ **Next.js (App Router + Server Components)**
-* 🧠 **Node.js + Express (TypeScript backend)**
-* 🗄️ **PostgreSQL (Relational Database)**
-
-This project demonstrates **scalable architecture, server-side rendering, and real-world data handling** using modern technologies.
+A modern, full-stack dashboard application built with multiple frontends and a Node.js backend, supporting web and mobile platforms.
 
 ---
 
-## 🌐 Live Demo
+## 🚀 Live Applications
 
-🔗 https://dashboard-brown-eta-81.vercel.app
+### 🌐 Web Apps
 
----
+- 🔷 Angular Dashboard  
+  https://dashboard-xip2.vercel.app/
 
-## 🧠 Tech Stack
-
-### 🖥️ Frontend
-
-* Next.js 16 (App Router)
-* React 18
-* Server Components
-* Tailwind CSS + SCSS + Styled Components
-* AG Charts (Data Visualization)
-* React Table
-
-### ⚙️ Backend
-
-* Node.js
-* Express.js (v5)
-* TypeScript
-* PostgreSQL (`pg`)
+- ⚡ Next.js Dashboard  
+  https://dashboard-brown-eta-81.vercel.app/
 
 ---
 
-## 🏗️ Architecture
+### 📱 Mobile App (React Native)
 
-```id="arch001"
-           ┌──────────────────────┐
-           │     Next.js App      │
-           │  (Server Components) │
-           └─────────┬────────────┘
-                     │ API Calls
-                     ▼
-           ┌──────────────────────┐
-           │   Express Backend    │
-           │   (TypeScript API)   │
-           └─────────┬────────────┘
-                     │ SQL Queries
-                     ▼
-           ┌──────────────────────┐
-           │     PostgreSQL DB    │
-           │  (Analytics Data)    │
-           └──────────────────────┘
-```
+- Expo Build  
+  https://expo.dev/accounts/deepakbs4/projects/mobile/builds/3679c14d-6655-4495-a7f6-b28b7a5bab16
+
+---
+
+## 🧱 Tech Stack
+
+### Frontend
+- Angular (Standalone + HttpClient + Interceptors)
+- Next.js (React)
+- React Native (Expo)
+
+### Backend
+- Node.js + Express
+- PostgreSQL (Supabase)
+
+### Charts & UI
+- AG Charts
+- SCSS Styling
+- Responsive Dashboard Layout
+
+### Authentication
+- JWT-based authentication
+- Angular interceptor for token handling
+
+---
+
+## ✨ Features
+
+- 📊 Dynamic charts (Area, Bar, Pie, Doughnut, Line)
+- 📋 Paginated data tables
+- 🔔 Notifications system
+- 👤 User dashboard stats
+- 📱 Cross-platform (Web + Mobile)
+- 🔐 JWT Authentication
+- 🌐 API-driven architecture
 
 ---
 
 ## 📁 Project Structure
 
-```id="struct001"
-.
-├── client/                  # Next.js frontend
-│   ├── app/                 # App router (Server Components)
-│   ├── components/          # UI components
-│   ├── styles/              # SCSS / Tailwind
-│   └── utils/               # API helpers
+```
+
+Dashboard/
 │
-├── server/                  # Express backend (TypeScript)
-│   ├── src/
-│   │   ├── routes/          # API routes
-│   │   ├── controllers/     # Business logic
-│   │   ├── db/              # PostgreSQL connection
-│   │   └── index.ts         # Entry point
+├── server/              # Node.js backend (Express + PostgreSQL)
+├── dashboard-angular/   # Angular frontend
+├── client/      # Next.js frontend
+├── mobile/              # React Native app (Expo)
 │
 └── README.md
-```
+
+````
 
 ---
 
-## ✨ Key Features
+## ⚙️ Backend Setup
 
-* 📊 Interactive charts using **AG Charts**
-* 📋 Advanced tables using **React Table**
-* ⚡ Server-side rendering (Next.js Server Components)
-* 🔗 RESTful API with Express
-* 🗄️ PostgreSQL integration for structured data
-* 🎯 Clean, modular, scalable architecture
-* 💡 Type-safe backend using TypeScript
-
----
-
-## 🔌 API Endpoints
-
-> Base URL: `http://localhost:5000/api`
-
-### 📊 Dashboard Data
-
-```http id="api001"
-GET /api/dashboard
-```
-
-Returns aggregated dashboard metrics (charts + tables data)
-
----
-
-### 📈 Analytics Data
-
-```http id="api002"
-GET /api/analytics
-```
-
-Returns time-series or statistical data for charts
-
----
-
-### 📋 Table Data
-
-```http id="api003"
-GET /api/table
-```
-
-Returns paginated/tabular dataset
-
----
-
-### ➕ Example Response
-
-```json id="api004"
-{
-  "success": true,
-  "data": {
-    "users": 1200,
-    "revenue": 5400,
-    "growth": 12.5
-  }
-}
-```
-
----
-
-## 🗄️ PostgreSQL Schema
-
-### 📌 Example Tables
-
-#### Users Table
-
-```sql id="sql001"
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100),
-  email VARCHAR(100) UNIQUE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
----
-
-#### Analytics Table
-
-```sql id="sql002"
-CREATE TABLE analytics (
-  id SERIAL PRIMARY KEY,
-  metric VARCHAR(50),
-  value NUMERIC,
-  recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
----
-
-#### Transactions Table
-
-```sql id="sql003"
-CREATE TABLE transactions (
-  id SERIAL PRIMARY KEY,
-  user_id INT REFERENCES users(id),
-  amount NUMERIC,
-  status VARCHAR(50),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
----
-
-## ⚙️ Environment Variables
-
-### Server `.env`
-
-```env id="env001"
-PORT=5000
-DATABASE_URL=postgresql://user:password@localhost:5432/dashboard_db
-```
-
-### Client `.env`
-
-```env id="env002"
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
-```
-
----
-
-## 🛠️ Installation
-
-```bash id="install001"
-git clone https://github.com/your-username/dashboard.git
-cd dashboard
-```
-
----
-
-## ▶️ Running Locally
-
-### Start Backend
-
-```bash id="run001"
+```bash
 cd server
 npm install
 npm run dev
+````
+
+Create `.env`:
+
+```
+DATABASE_URL=your_database_url
+JWT_SECRET=your_secret_key
 ```
 
 ---
 
-### Start Frontend
+## 💻 Angular Setup
 
-```bash id="run002"
-cd client
+```bash
+cd dashboard-angular
+npm install
+ng serve
+```
+
+---
+
+## ⚡ Next.js Setup
+
+```bash
+cd dashboard-next
 npm install
 npm run dev
 ```
 
 ---
 
-## 📦 Build
+## 📱 React Native Setup
 
-```bash id="build001"
-cd server && npm run build
-cd client && npm run build
+```bash
+cd mobile
+npm install
+npx expo start
 ```
 
 ---
 
-## 🌐 Deployment
+## 🔐 Authentication Flow
 
-| Layer    | Platform                     |
-| -------- | ---------------------------- |
-| Frontend | Vercel                       |
-| Backend  | Render                       |
-| Database | PostgreSQL (Neon / Supabase) |
-
----
-
-## 📈 What This Project Demonstrates
-
-✅ Full-stack architecture design
-✅ Server-side rendering (performance + SEO)
-✅ REST API development with TypeScript
-✅ Database design with PostgreSQL
-✅ Real-world dashboard UI patterns
-✅ Clean and scalable folder structure
+1. User logs in → backend returns JWT
+2. Token stored in localStorage (Angular) / secure storage (mobile)
+3. Interceptor attaches token to requests
+4. Backend verifies token via middleware
 
 ---
 
-## 🚀 Future Enhancements
+## 📊 API Endpoints
 
-* 🔐 Authentication (JWT / OAuth)
-* 📡 Real-time data (WebSockets)
-* 📊 Advanced filtering & pagination
-* 🧪 Unit & integration testing
-* 📉 Caching (Redis)
+| Endpoint                      | Description       |
+| ----------------------------- | ----------------- |
+| `/api/auth/login`             | Login & get JWT   |
+| `/api/sidebar`                | Sidebar data      |
+| `/api/dashboard/stats`        | Dashboard metrics |
+| `/api/charts/area`            | Area chart        |
+| `/api/charts/bar`             | Bar chart         |
+| `/api/charts/simple/pie`      | Pie chart         |
+| `/api/charts/simple/doughnut` | Doughnut chart    |
+| `/api/sensor/:location`       | Line chart data   |
+| `/api/candidates`             | Paginated table   |
+
+---
+
+## 🧠 Key Learnings
+
+* Multi-framework frontend architecture
+* JWT authentication with middleware
+* Angular interceptors (modern standalone setup)
+* REST API design with pagination
+* Cross-platform development (Web + Mobile)
+
+---
+
+## 🚀 Future Improvements
+
+* Role-based access control (RBAC)
+* Refresh token system
+* Dark mode UI
+* Real-time data (WebSockets)
+* CI/CD pipeline
 
 ---
 
 ## 👨‍💻 Author
 
-**Deepak**
+Deepak
 
 ---
 
-## ⭐ Why This Project Stands Out
+## ⭐ If you like this project
 
-This is not just a UI project — it demonstrates:
+Give it a ⭐ on GitHub and share it!
 
-* Real backend + database integration
-* Server-side rendering using modern React patterns
-* Production-level structure used in real companies
+```
 
-👉 Perfect for **Full Stack Developer roles**
 
----
