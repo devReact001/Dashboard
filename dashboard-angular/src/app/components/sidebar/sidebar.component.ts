@@ -11,7 +11,7 @@ import { ApiService } from '../../services/api';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  user: any = null;
+  user: any = {};
   notifications: any[] = [];
   currentDate = new Date();
   private timer: any;
@@ -19,19 +19,18 @@ export class SidebarComponent implements OnInit, OnDestroy {
   constructor(private api: ApiService, private router: Router) {}
 
   async ngOnInit() {
-    // Live clock
-    this.timer = setInterval(() => {
-      this.currentDate = new Date();
-    }, 1000);
+  this.timer = setInterval(() => {
+    this.currentDate = new Date();
+  }, 1000);
 
-    try {
-      const userRes = await this.api.getSidebar();
-      this.user = Array.isArray(userRes) ? userRes[0] : userRes;
-      this.notifications = await this.api.getNotifications();
-    } catch (error) {
-      console.error('Sidebar Error:', error);
-    }
+  try {
+    const userRes = await this.api.getSidebar();
+    this.user = { ...(Array.isArray(userRes) ? userRes[0] : userRes) }; // ✅ spread
+    this.notifications = [...await this.api.getNotifications()];         // ✅ spread
+  } catch (error) {
+    console.error('Sidebar Error:', error);
   }
+}
 
   ngOnDestroy() {
     clearInterval(this.timer);

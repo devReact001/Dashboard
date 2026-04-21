@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      this.stats = await this.api.getStats();
+      this.stats = { ...await this.api.getStats() };
     } catch (err) {
       console.error(err);
     }
