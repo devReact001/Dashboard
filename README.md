@@ -1,9 +1,11 @@
 ```md
 # 📊 Full Stack Dashboard (Angular + Next.js + React Native)
 
-A scalable, multi-platform dashboard application built using Angular, Next.js, and React Native, powered by a Node.js + PostgreSQL backend.
+A scalable, multi-platform dashboard application built using Angular, Next.js, and React Native,
+ powered by a Node.js + PostgreSQL backend.
 
-This project demonstrates full-stack development, API design, authentication, and cross-platform UI implementation.
+This project demonstrates full-stack development, API design, authentication, and cross-platform
+ UI implementation.
 
 ---
 
