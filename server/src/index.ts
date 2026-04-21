@@ -29,8 +29,9 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      "http://localhost:4200", // ✅ Angular
+      "http://localhost:4200", // (optional Angular dev)
       "http://localhost:3000", // (optional Next dev)
+      "http://localhost:5173", // (optional Vue dev)
       "https://dashboard-brown-eta-81.vercel.app", // Next prod
       "https://dashboard-xip2.vercel.app", // Angular prod
     ],
