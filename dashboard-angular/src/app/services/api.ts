@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
+interface PaginatedResponse {
+  data: any[];
+  totalPages: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -10,63 +15,72 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getHeaders() {
+  // ✅ headers (array)
+  getHeaders(): Promise<any[]> {
     return firstValueFrom(
-      this.http.get(`${this.baseUrl}/candidates/headers`)
+      this.http.get<any[]>(`${this.baseUrl}/candidates/headers`)
     );
   }
 
-  getCandidates(page = 1, limit = 5) {
+  // ✅ paginated response
+  getCandidates(page = 1, limit = 5): Promise<PaginatedResponse> {
     return firstValueFrom(
-      this.http.get(`${this.baseUrl}/candidates?page=${page}&limit=${limit}`)
+      this.http.get<PaginatedResponse>(
+        `${this.baseUrl}/candidates?page=${page}&limit=${limit}`
+      )
     );
   }
 
-  getStats() {
+  // ✅ stats (object)
+  getStats(): Promise<any> {
     return firstValueFrom(
-      this.http.get(`${this.baseUrl}/dashboard/stats`)
+      this.http.get<any>(`${this.baseUrl}/dashboard/stats`)
     );
   }
 
-  getSidebar() {
+  // ✅ sidebar (array)
+  getSidebar(): Promise<any[]> {
     return firstValueFrom(
-      this.http.get(`${this.baseUrl}/sidebar`)
+      this.http.get<any[]>(`${this.baseUrl}/sidebar`)
     );
   }
 
-  getNotifications() {
+  // ✅ notifications (array)
+  getNotifications(): Promise<any[]> {
     return firstValueFrom(
-      this.http.get(`${this.baseUrl}/sidebar/notifications`)
+      this.http.get<any[]>(`${this.baseUrl}/sidebar/notifications`)
     );
   }
 
-  getAreaChart() {
+  // ✅ charts (arrays)
+  getAreaChart(): Promise<any[]> {
     return firstValueFrom(
-      this.http.get(`${this.baseUrl}/charts/area`)
+      this.http.get<any[]>(`${this.baseUrl}/charts/area`)
     );
   }
 
-  getBarChart() {
+  getBarChart(): Promise<any[]> {
     return firstValueFrom(
-      this.http.get(`${this.baseUrl}/charts/bar`)
+      this.http.get<any[]>(`${this.baseUrl}/charts/bar`)
     );
   }
 
-  getDoughnutChart() {
+  getPieChart(): Promise<any[]> {
     return firstValueFrom(
-      this.http.get(`${this.baseUrl}/charts/simple/doughnut`)
+      this.http.get<any[]>(`${this.baseUrl}/charts/simple/pie`)
     );
   }
 
-  getPieChart() {
+  getDoughnutChart(): Promise<any[]> {
     return firstValueFrom(
-      this.http.get(`${this.baseUrl}/charts/simple/pie`)
+      this.http.get<any[]>(`${this.baseUrl}/charts/simple/doughnut`)
     );
   }
 
-  getSensor(location: string) {
+  // ✅ sensor (array)
+  getSensor(location: string): Promise<any[]> {
     return firstValueFrom(
-      this.http.get(`${this.baseUrl}/sensor/${location}`)
+      this.http.get<any[]>(`${this.baseUrl}/sensor/${location}`)
     );
   }
 }
