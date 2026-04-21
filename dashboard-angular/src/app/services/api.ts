@@ -67,13 +67,13 @@ export class ApiService {
 
   getPieChart(): Promise<any[]> {
     return firstValueFrom(
-      this.http.get<any[]>(`${this.baseUrl}/charts/simple/pie`)
+      this.http.get<any[]>(`${this.baseUrl}/charts/pie`)
     );
   }
 
   getDoughnutChart(): Promise<any[]> {
     return firstValueFrom(
-      this.http.get<any[]>(`${this.baseUrl}/charts/simple/doughnut`)
+      this.http.get<any[]>(`${this.baseUrl}/charts/doughnut`)
     );
   }
 
