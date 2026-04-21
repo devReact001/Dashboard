@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Layout from "../components/Layout.vue";
 import StatsCards from "../components/StatsCards.vue";
 import AreaChart from "../components/AreaChart.vue";
 import BarChart from "../components/BarChart.vue";
@@ -10,67 +9,66 @@ import Notifications from "../components/Notifications.vue";
 </script>
 
 <template>
-  <Layout>
     <div class="dashboard">
+
       <h1>Vue Dashboard</h1>
 
-      <!-- Stats -->
+      <!-- STATS -->
       <div class="stats">
         <StatsCards />
       </div>
 
-      <!-- Charts Row 1 -->
-      <div class="charts">
+      <!-- TOP CHARTS -->
+      <div class="grid-2">
         <AreaChart />
         <BarChart />
       </div>
 
-      <!-- Charts Row 2 -->
-      <div class="charts-2">
+      <!-- PIE -->
+      <div class="grid-2">
         <PieChart />
         <DoughnutChart />
       </div>
 
-      <!-- Bottom -->
-      <div class="bottom">
+      <!-- BOTTOM -->
+      <div class="grid-2">
         <Table />
         <Notifications />
       </div>
+
     </div>
-  </Layout>
 </template>
 
 <style scoped>
 .dashboard {
-  padding: 20px;
+  padding: 24px;
   background: #f4f6f9;
   min-height: 100vh;
 }
 
+/* TITLE */
+h1 {
+  margin-bottom: 20px;
+}
+
+/* STATS */
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 18px;
   margin-bottom: 20px;
 }
 
-.charts {
+/* GENERIC GRID */
+.grid-2 {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
   margin-bottom: 20px;
 }
 
-.charts-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.bottom {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 20px;
+/* FORCE CARD HEIGHT CONSISTENCY */
+.grid-2 > * {
+  min-height: 320px;
 }
 </style>

@@ -41,12 +41,21 @@ onMounted(fetchData);
 </template>
 
 <style scoped>
+.card {
+  height: 100%;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th, td {
+th {
+  background: #ffb347;
+  color: white;
+}
+
+td, th {
   padding: 10px;
   border: 1px solid #ddd;
 }

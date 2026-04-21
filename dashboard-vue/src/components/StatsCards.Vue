@@ -12,21 +12,26 @@ onMounted(async () => {
 
 <template>
   <div class="cards" v-if="stats">
-    <div class="card">Active Users: {{ stats.activeUsers }}</div>
-    <div class="card">Total Users: {{ stats.totalUsers }}</div>
+    <div class="card">Active Users: {{ stats.active_users }}</div>
+    <div class="card">Total Users: {{ stats.total_users }}</div>
     <div class="card">Applications: {{ stats.applications }}</div>
   </div>
 </template>
 
 <style scoped>
 .cards {
-  display: contents; /* IMPORTANT: lets parent grid control layout */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
 }
 
 .card {
-  background: white;
+  background: #ffb347;
+  color: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  font-weight: bold;
+  text-align: center;
+  font-size: 18px;
 }
 </style>

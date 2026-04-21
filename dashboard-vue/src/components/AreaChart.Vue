@@ -25,3 +25,12 @@ onMounted(async () => {
     <AgCharts :options="options" />
   </div>
 </template>
+
+<style scoped>
+.chart {
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

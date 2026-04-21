@@ -6,7 +6,7 @@ import API from "../services/api";
 const options = ref({});
 
 onMounted(async () => {
-  const res = await API.get("/charts/simple/pie");
+  const res = await API.get("/charts/pie");
 
   options.value = {
     data: res.data,
@@ -26,3 +26,12 @@ onMounted(async () => {
     <AgCharts :options="options" />
   </div>
 </template>
+
+<style scoped>
+.chart {
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
