@@ -6,7 +6,8 @@
     "orientation": "portrait",
     "scheme": "mobile",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+
+    "newArchEnabled": false,
 
     "ios": {
       "supportsTablet": true
@@ -14,9 +15,13 @@
 
     "android": {
       "package": "com.deepakbs4.mobile",
+      "permissions": ["INTERNET"],
+      "usesCleartextTraffic": true,
+
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE"
       },
+
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
@@ -25,9 +30,7 @@
       "output": "static"
     },
 
-    "plugins": [
-      "expo-router"
-    ],
+    "plugins": ["expo-router"],
 
     "experiments": {
       "typedRoutes": true,
