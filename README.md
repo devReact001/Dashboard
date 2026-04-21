@@ -1,9 +1,3 @@
-Here’s a **resume-grade, polished README** you can directly use in your repo. This version highlights impact, architecture, and your full-stack + multi-platform skills clearly.
-
----
-
-# 📄 ✅ UPDATED README.md (Resume-Ready)
-
 ```md
 # 📊 Full Stack Dashboard (Angular + Next.js + React Native)
 
