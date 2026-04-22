@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Sidebar from "../components/Sidebar.vue";
-import StatsCards from "../components/StatsCards.vue";
-import AreaChart from "../components/AreaChart.vue";
-import BarChart from "../components/BarChart.vue";
+import StatsCards from "../components/StatsCards.Vue";
+import AreaChart from "../components/AreaChart.Vue";
+import BarChart from "../components/BarChart.Vue";
 import LineChart from "../components/LineChart.vue";
-import PieChart from "../components/PieChart.vue";
-import DoughnutChart from "../components/DoughnutChart.vue";
-import Table from "../components/Table.vue";
+import PieChart from "../components/PieChart.Vue";
+import DoughnutChart from "../components/DoughnutChart.Vue";
+import Table from "../components/Table.Vue";
+import Sidebar from "../components/Sidebar.vue";
 </script>
 
 <template>
