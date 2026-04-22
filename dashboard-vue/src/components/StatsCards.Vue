@@ -1,37 +1,24 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import API from "../services/api";
-
 const stats = ref<any>(null);
-
-onMounted(async () => {
-  const res = await API.get("/dashboard/stats");
-  stats.value = res.data;
-});
+onMounted(async () => { const res = await API.get("/dashboard/stats"); stats.value = res.data; });
 </script>
-
 <template>
-  <div class="cards" v-if="stats">
-    <div class="card">Active Users: {{ stats.active_users }}</div>
-    <div class="card">Total Users: {{ stats.total_users }}</div>
-    <div class="card">Applications: {{ stats.applications }}</div>
-  </div>
+  <template v-if="stats">
+    <div class="info-card"><span class="card-label">Active Users</span><span class="card-value">{{ stats.active_users ?? "—" }}</span></div>
+    <div class="info-card"><span class="card-label">Total Users</span><span class="card-value">{{ stats.total_users ?? "—" }}</span></div>
+    <div class="info-card"><span class="card-label">Applications</span><span class="card-value">{{ stats.applications ?? "—" }}</span></div>
+  </template>
+  <template v-else>
+    <div class="info-card"><span class="card-label">Active Users</span><span class="card-value">—</span></div>
+    <div class="info-card"><span class="card-label">Total Users</span><span class="card-value">—</span></div>
+    <div class="info-card"><span class="card-label">Applications</span><span class="card-value">—</span></div>
+  </template>
 </template>
-
 <style scoped>
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-
-.card {
-  background: #ffb347;
-  color: white;
-  padding: 20px;
-  border-radius: 12px;
-  font-weight: bold;
-  text-align: center;
-  font-size: 18px;
-}
+.info-card { flex: 1; background: #1e293b; border-radius: 16px; padding: 24px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); transition: transform 0.25s ease; }
+.info-card:hover { transform: translateY(-4px); }
+.card-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #64748b; }
+.card-value { background: #f1f5f9; color: #1e293b; padding: 6px 16px; border-radius: 10px; font-weight: 800; font-size: 1.4rem; }
 </style>

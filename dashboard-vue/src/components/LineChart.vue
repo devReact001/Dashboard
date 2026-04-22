@@ -4,18 +4,16 @@ import { Chart } from "chart.js/auto";
 import API from "../services/api";
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 onMounted(async () => {
-  const res = await API.get("/charts/bar");
-  const data = res.data;
+  const [officeRes, loungeRes] = await Promise.all([API.get("/sensor/office"), API.get("/sensor/lounge")]);
+  const office = officeRes.data;
+  const lounge = loungeRes.data;
   new Chart(canvasRef.value!, {
-    type: "bar",
+    type: "line",
     data: {
-      labels: data.map((d: any) => d.quarter),
+      labels: office.map((d: any) => new Date(d.time).toLocaleTimeString()),
       datasets: [
-        { label: "iPhone", data: data.map((d: any) => d.iphone), backgroundColor: "#3b82f6", borderRadius: 4 },
-        { label: "Mac", data: data.map((d: any) => d.mac), backgroundColor: "#a78bfa", borderRadius: 4 },
-        { label: "iPad", data: data.map((d: any) => d.ipad), backgroundColor: "#34d399", borderRadius: 4 },
-        { label: "Wearables", data: data.map((d: any) => d.wearables), backgroundColor: "#fb923c", borderRadius: 4 },
-        { label: "Services", data: data.map((d: any) => d.services), backgroundColor: "#f87171", borderRadius: 4 },
+        { label: "Office", data: office.map((d: any) => d.sensor), borderColor: "#3b82f6", tension: 0.4, pointRadius: 3 },
+        { label: "Lounge", data: lounge.map((d: any) => d.sensor), borderColor: "#a78bfa", tension: 0.4, pointRadius: 3 },
       ],
     },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: "#e2e8f0" } } }, scales: { x: { ticks: { color: "#94a3b8" }, grid: { color: "#1e293b" } }, y: { ticks: { color: "#94a3b8" }, grid: { color: "#1e293b" } } } },

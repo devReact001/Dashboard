@@ -1,37 +1,17 @@
-<script setup>
-import { ref, onMounted } from "vue";
-import { AgCharts } from "ag-charts-vue3";
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+import { Chart } from "chart.js/auto";
 import API from "../services/api";
-
-const options = ref({});
-
+const canvasRef = ref<HTMLCanvasElement | null>(null);
 onMounted(async () => {
   const res = await API.get("/charts/doughnut");
-
-  options.value = {
-    data: res.data,
-    series: [
-      {
-        type: "doughnut",
-        angleKey: "amount",
-        innerRadiusRatio: 0.7,
-      },
-    ],
-  };
+  const data = res.data;
+  new Chart(canvasRef.value!, {
+    type: "doughnut",
+    data: { labels: data.map((d: any) => d.asset), datasets: [{ data: data.map((d: any) => d.amount), backgroundColor: ["#3b82f6","#a78bfa","#34d399","#fb923c","#f87171"] }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: "#e2e8f0" } } } },
+  });
 });
 </script>
-
-<template>
-  <div class="card">
-    <AgCharts :options="options" />
-  </div>
-</template>
-
-<style scoped>
-.chart {
-  height: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-</style>
+<template><div class="chart-wrap"><canvas ref="canvasRef"></canvas></div></template>
+<style scoped>.chart-wrap { position: relative; width: 100%; height: 100%; } canvas { width: 100% !important; height: 100% !important; }</style>

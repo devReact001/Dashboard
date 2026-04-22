@@ -5,6 +5,7 @@ import Login from "../pages/Login.vue";
 const routes = [
   { path: "/login", component: Login },
   { path: "/", component: Dashboard },
+  { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
 const router = createRouter({
@@ -12,15 +13,9 @@ const router = createRouter({
   routes,
 });
 
-
-// 🔐 ADD IT HERE (after router creation, before export)
 router.beforeEach((to) => {
   const token = localStorage.getItem("token");
-
-  if (to.path !== "/login" && !token) {
-    return "/login"; // ✅ new way
-  }
+  if (to.path !== "/login" && !token) return "/login";
 });
-
 
 export default router;
