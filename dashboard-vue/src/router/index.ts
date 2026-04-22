@@ -1,10 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Dashboard from "../pages/Dashboard.vue";
-import Login from "../pages/Login.vue";
 
 const routes = [
-  { path: "/login", component: Login },
-  { path: "/", component: Dashboard },
+  { 
+    path: "/login", 
+    component: () => import("../pages/Login.vue")      // ✅ match EXACT filename
+  },
+  { 
+    path: "/", 
+    component: () => import("../pages/Dashboard.vue")   // ✅ match EXACT filename
+  },
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
