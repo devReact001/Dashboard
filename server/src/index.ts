@@ -34,6 +34,7 @@ app.use(
       "http://localhost:5173", // (optional Vue dev)
       "https://dashboard-brown-eta-81.vercel.app", // Next prod
       "https://dashboard-xip2.vercel.app", // Angular prod
+      "https://dashboard-p78f.vercel.app", // Vue prod
     ],
     credentials: true,
   })
