@@ -1,153 +1,166 @@
-```md
-# 📊 Full Stack Dashboard (Angular + Next.js + React Native)
+# 📊 Full Stack Dashboard (Angular + Next.js + Vue + React Native)
 
-A scalable, multi-platform dashboard application built using Angular, Next.js, and React Native,
- powered by a Node.js + PostgreSQL backend.
+A scalable, multi-platform dashboard application built using **Angular, Next.js, Vue.js, and React Native**,
+powered by a **Node.js + PostgreSQL backend**.
 
-This project demonstrates full-stack development, API design, authentication, and cross-platform
- UI implementation.
+This project demonstrates full-stack development, API design, JWT authentication, and cross-platform
+UI implementation across four separate frontend frameworks from a single shared backend.
 
 ---
 
 ## 🚀 Live Applications
 
 ### 🌐 Web
-
-- 🔷 Angular Dashboard  
+- 🔷 **Angular Dashboard**
   https://dashboard-xip2.vercel.app/
 
-- ⚡ Next.js Dashboard  
+- ⚡ **Next.js Dashboard**
   https://dashboard-brown-eta-81.vercel.app/
+
+- 💚 **Vue.js Dashboard**
+  https://dashboard-p78f.vercel.app/
 
 ---
 
 ### 📱 Mobile (React Native - Expo)
-
-- Expo Build  
+- **Expo Build**
   https://expo.dev/accounts/deepakbs4/projects/mobile/builds/3679c14d-6655-4495-a7f6-b28b7a5bab16
 
 ---
 
 ## ⭐ Key Highlights
 
-- Built **three separate frontends** (Angular, Next.js, React Native) using a shared backend API
-- Implemented **JWT authentication** with middleware and Angular interceptor
+- Built **four separate frontends** (Angular, Next.js, Vue.js, React Native) using a single shared backend API
+- Implemented **JWT authentication** with middleware, Angular interceptors, and Vue route guards
 - Designed **modular REST APIs** with pagination and structured routing
-- Integrated **dynamic charts** (Area, Bar, Pie, Doughnut, Line)
-- Developed **responsive UI dashboards** with SCSS
-- Deployed across **Vercel (frontend), Render (backend), Expo (mobile)**
+- Integrated **dynamic charts** (Area, Bar, Pie, Doughnut, Line) using AG Charts
+- Developed **responsive UI dashboards** with SCSS across all platforms
+- Deployed across **Vercel (Angular, Next.js, Vue frontends), Render (Node.js backend), Expo (mobile)**
 
 ---
 
 ## 🏗️ Architecture
 
 ```
-
-Frontend (Angular / Next.js / React Native)
-↓
-HTTP Requests (JWT via Interceptor)
-↓
-Node.js + Express API
-↓
-PostgreSQL (Supabase)
-
+┌─────────────────────────────────────────────────────────────────┐
+│                         Frontends                               │
+├──────────────┬──────────────┬──────────────┬────────────────────┤
+│   Angular    │   Next.js    │    Vue.js    │   React Native     │
+│  (Vercel)    │  (Vercel)    │  (Vercel)    │     (Expo)         │
+└──────┬───────┴──────┬───────┴──────┬───────┴────────┬───────────┘
+       │              │              │                 │
+       └──────────────┴──────────────┴─────────────────┘
+                              │
+                              ▼
+                   Node.js + Express API
+                       (Render)
+                              │
+                              ▼
+                   PostgreSQL (Supabase)
 ```
 
 ---
 
-## 🧱 Tech Stack
+## 🛠️ Tech Stack
 
-### Frontend
-- Angular (Standalone API, HttpClient, Interceptors)
-- Next.js (React)
-- React Native (Expo)
-
-### Backend
-- Node.js + Express
-- PostgreSQL (Supabase)
-
-### Features & Libraries
-- JWT Authentication
-- AG Charts
-- SCSS Styling
-- REST API with pagination
-
----
-
-## ✨ Features
-
-- 📊 Interactive charts (Area, Bar, Pie, Doughnut, Line)
-- 📋 Paginated data tables
-- 🔔 Notifications system
-- 👤 Dashboard metrics (users, applications, etc.)
-- 📱 Cross-platform UI (Web + Mobile)
-- 🔐 Secure API with JWT authentication
-
----
-
-## 🧠 Challenges & Solutions
-
-- Implemented **JWT authentication across multiple platforms**
-- Solved **token validation and interceptor issues in Angular**
-- Handled **TypeScript strict typing for API responses**
-- Fixed **CORS and deployment inconsistencies (local vs production)**
-- Structured reusable API responses for multiple frontends
+| Layer | Technology |
+|-------|-----------|
+| Frontend 1 | Angular + TypeScript + SCSS |
+| Frontend 2 | Next.js + TypeScript + SCSS |
+| Frontend 3 | Vue.js + TypeScript + SCSS |
+| Frontend 4 | React Native + Expo |
+| Backend | Node.js + Express.js |
+| Database | PostgreSQL (Supabase) |
+| Auth | JWT (JSON Web Tokens) |
+| Charts | AG Charts |
+| Deployment | Vercel + Render + Expo |
 
 ---
 
 ## 📁 Project Structure
 
-Dashboard/
-│
-├── server/               # Backend (Node.js + Express + PostgreSQL)
-├── dashboard-angular/    # Angular frontend
-├── client/               # Next.js frontend
-├── mobile/               # React Native app (Expo)
-└── README.md
-
-
+```
+dashboard/
+├── angular-dashboard/      # Angular frontend
+├── nextjs-dashboard/       # Next.js frontend
+├── vue-dashboard/          # Vue.js frontend
+├── mobile/                 # React Native (Expo) app
+└── backend/                # Node.js + Express API
+    ├── routes/
+    ├── middleware/
+    │   └── auth.js         # JWT middleware
+    └── server.js
+```
 
 ---
 
-## ⚙️ Backend Setup
+## 🔐 Authentication Flow
 
+```
+User Login
+    ↓
+POST /api/auth/login
+    ↓
+JWT Token Generated
+    ↓
+Stored in localStorage / SecureStore (mobile)
+    ↓
+Attached to all API requests:
+  Angular  → HTTP Interceptor
+  Next.js  → Axios / fetch headers
+  Vue.js   → Axios interceptor
+  Mobile   → AsyncStorage + headers
+    ↓
+Backend JWT Middleware validates token
+    ↓
+Protected routes accessible
+```
+
+---
+
+## 📊 Features
+
+- **Dashboard Overview** — KPI cards, summary metrics, real-time charts
+- **Data Tables** — Paginated, sortable data with search
+- **Dynamic Charts** — Area, Bar, Pie, Doughnut, Line charts via AG Charts
+- **JWT Auth** — Login, protected routes, token refresh
+- **Responsive Design** — Mobile-first SCSS layouts
+- **Cross-Platform** — Same features across Angular, Next.js, Vue, and React Native
+
+---
+
+## 🚀 Running Locally
+
+### Backend
 ```bash
-cd server
+cd backend
 npm install
+# Add .env with DATABASE_URL and JWT_SECRET
 npm run dev
-````
-
-Create `.env` file:
-
-```
-DATABASE_URL=your_database_url
-JWT_SECRET=your_secret_key
 ```
 
----
-
-## 💻 Angular Setup
-
+### Angular
 ```bash
-cd dashboard-angular
+cd angular-dashboard
 npm install
 ng serve
 ```
 
----
-
-## ⚡ Next.js Setup
-
+### Next.js
 ```bash
-cd dashboard-next
+cd nextjs-dashboard
 npm install
 npm run dev
 ```
 
----
+### Vue.js
+```bash
+cd vue-dashboard
+npm install
+npm run dev
+```
 
-## 📱 React Native Setup
-
+### React Native
 ```bash
 cd mobile
 npm install
@@ -156,53 +169,31 @@ npx expo start
 
 ---
 
-## 🔐 Authentication Flow
+## 🌍 Environment Variables
 
-1. User logs in → backend generates JWT
-2. Token stored in client (localStorage / secure storage)
-3. Angular interceptor attaches token to every request
-4. Backend middleware verifies token before accessing protected routes
+```env
+# Backend
+DATABASE_URL=your-supabase-postgresql-url
+JWT_SECRET=your-jwt-secret
+PORT=5000
 
----
-
-## 📊 API Endpoints
-
-| Endpoint                      | Description          |
-| ----------------------------- | -------------------- |
-| `/api/auth/login`             | Login & get JWT      |
-| `/api/sidebar`                | Sidebar data         |
-| `/api/dashboard/stats`        | Dashboard metrics    |
-| `/api/charts/area`            | Area chart           |
-| `/api/charts/bar`             | Bar chart            |
-| `/api/charts/simple/pie`      | Pie chart            |
-| `/api/charts/simple/doughnut` | Doughnut chart       |
-| `/api/sensor/:location`       | Line chart data      |
-| `/api/candidates`             | Paginated table data |
-
----
-
-## 🚀 Future Improvements
-
-* Role-based access control (RBAC)
-* Refresh token system
-* Dark mode UI
-* Real-time updates (WebSockets)
-* CI/CD pipeline
-
----
-
-## 👨‍💻 Author
-
-Deepak
-
----
-
-## ⭐ Support
-
-If you found this project useful, consider giving it a ⭐ on GitHub!
-
+# Frontends
+NEXT_PUBLIC_API_URL=https://your-backend.render.com
+VITE_API_URL=https://your-backend.render.com
 ```
 
+---
 
-Just tell me 👍
-```
+## 📄 License
+
+MIT — feel free to fork, learn from, and build on top of this.
+
+---
+
+<div align="center">
+
+Built with ❤️ using Node.js, Angular, Next.js, Vue.js, and React Native
+
+**[Angular](https://dashboard-xip2.vercel.app/)** · **[Next.js](https://dashboard-brown-eta-81.vercel.app/)** · **[Vue.js](https://dashboard-p78f.vercel.app/)** · **[GitHub](https://github.com/devReact001/Dashboard)**
+
+</div>
