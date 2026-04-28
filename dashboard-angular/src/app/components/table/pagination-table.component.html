@@ -15,7 +15,7 @@
     </tbody>
   </table>
 
-  <div class="pagination" *ngIf="!loading && data.length > 0">
+  <div class="pagination" *ngIf="!loading && !error && data.length > 0">
     <button (click)="goToPage(page - 1)" [disabled]="page === 1">&lsaquo;</button>
     <button
       *ngFor="let p of pages"

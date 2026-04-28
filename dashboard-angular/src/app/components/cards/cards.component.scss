@@ -1,38 +1,69 @@
-:host {
-  display: contents;
-}
+/*
+  Matches Next.js Information.scss:
+  Active Users  -> Light sky blue  #38bdf8 -> #0ea5e9
+  Total Users   -> Light emerald   #34d399 -> #10b981
+  Applications  -> Light orange    #fb923c -> #f97316
+*/
+
+:host { display: contents; }
 
 .info-card {
   flex: 1;
-  background: #1e293b;
   border-radius: 16px;
-  padding: 24px 20px;
+  padding: 14px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.25s ease;
+  gap: 8px;
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 
-  &:hover {
-    transform: translateY(-4px);
-  }
+  &:hover { transform: translateY(-3px); }
 
   .card-label {
-    font-size: 12px;
+    font-size: clamp(0.6rem, 0.9vw, 0.75rem);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: #64748b;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.65);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
   }
 
   .card-value {
-    background: #f1f5f9;
-    color: #1e293b;
-    padding: 6px 16px;
-    border-radius: 10px;
+    font-size: clamp(1.3rem, 2.2vw, 2rem);
     font-weight: 800;
-    font-size: 1.4rem;
+    color: #ffffff;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
   }
+}
+
+/* Active Users - light sky blue */
+.info-card:nth-child(1) {
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.35);
+  &:hover { box-shadow: 0 12px 32px rgba(14, 165, 233, 0.45); }
+}
+
+/* Total Users - light emerald */
+.info-card:nth-child(2) {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  box-shadow: 0 8px 24px rgba(52, 211, 153, 0.35);
+  &:hover { box-shadow: 0 12px 32px rgba(52, 211, 153, 0.45); }
+}
+
+/* Applications - light orange */
+.info-card:nth-child(3) {
+  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  box-shadow: 0 8px 24px rgba(251, 146, 60, 0.35);
+  &:hover { box-shadow: 0 12px 32px rgba(251, 146, 60, 0.45); }
 }
