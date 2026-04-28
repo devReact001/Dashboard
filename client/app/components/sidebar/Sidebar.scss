@@ -1,134 +1,194 @@
 @use "../../../styles/base/variables" as *;
 
+/*
+  SIDEBAR COLOR SYSTEM
+  All three cards belong to one "deep navy → royal blue → indigo" family
+  so the sidebar reads as a single cohesive unit.
+  ─────────────────────────────────────────────
+  Welcome       : Royal blue    #1e40af → #1d4ed8
+  Date / Time   : Ocean blue    #0369a1 → #1e40af
+  Notifications : Deep indigo   #312e81 → #1e1b4b
+*/
+
 /* =========================
    GRID CONTAINER
 ========================= */
 
 .grid-container-sidebar {
-  display: grid;
-  grid-template-rows: repeat(8, 1fr);
-  grid-template-columns: repeat(8, 1fr);
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   height: 100%;
-  padding: 20px;
+  min-height: 0;
+  padding: 12px;
+  box-sizing: border-box;
 }
 
 /* =========================
-   COMMON CARD STYLE
+   COMMON CARD SHAPE
 ========================= */
 
 %sidebar-card {
-  border-radius: 20px;
-  background-color: #1e293b;
-  color: #e2e8f0;
+  border-radius: 14px;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
+  font-weight: 600;
   text-align: center;
+  padding: 14px 12px;
+  overflow: hidden;
+  position: relative;
 }
 
 /* =========================
-   ITEM 1 - WELCOME
+   ITEM 1 — WELCOME
+   Royal blue
 ========================= */
 
 .item1-sidebar {
   @extend %sidebar-card;
+  flex: 0 0 auto;
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  box-shadow: 0 6px 24px rgba(96, 165, 250, 0.4);
 
-  grid-row: 1 / 3;
-  grid-column: 1 / 9;
+  .welcome-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.65);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 7px;
+  }
 
   .item1-sidebar-in {
-    margin-top: 10px;
-    background-color: #3b82f6;
-    color: white;
-    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    padding: 5px 16px;
     border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    letter-spacing: 0.01em;
   }
 }
 
 /* =========================
-   ITEM 2 - DATE & TIME
+   ITEM 2 — DATE & TIME
+   Ocean blue
 ========================= */
 
 .item2-sidebar {
   @extend %sidebar-card;
+  flex: 0 0 auto;
+  gap: 7px;
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  box-shadow: 0 6px 24px rgba(56, 189, 248, 0.4);
 
-  grid-row: 3 / 5;
-  grid-column: 1 / 9;
+  .date-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
 
   .item2-sidebar-in {
-    margin-top: 10px;
-    background-color: #3b82f6;
-    color: white;
-    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    padding: 5px 16px;
     border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.22);
   }
 }
 
 /* =========================
-   ITEM 3 - NOTIFICATIONS
+   ITEM 3 — NOTIFICATIONS
+   Deep indigo
 ========================= */
 
 .item3-sidebar {
   @extend %sidebar-card;
 
-  grid-row: 5 / 8;
-  grid-column: 1 / 9;
+  flex: 0 0 auto;
+  height: 220px;
   overflow: hidden;
+  background: linear-gradient(150deg, #818cf8 0%, #6366f1 100%);
+  box-shadow: 0 6px 24px rgba(129, 140, 248, 0.4);
+  border: 1px solid rgba(199, 210, 254, 0.2);
+
+  justify-content: flex-start;
+  align-items: stretch;
+
+  .notifications-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+    text-align: center;
+    flex-shrink: 0;
+  }
 
   .item3-sidebar-in {
-    background-color: #f1f5f9;
-    color: #1e293b;
-    padding: 12px;
-    border-radius: 12px;
-    margin: 10px;
-    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 8px;
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(129, 140, 248, 0.3) transparent;
 
-    max-height: 140px;
-    overflow: hidden;
-
-    ol {
-      list-style: none; // 🔥 remove numbers
+    ul {
+      list-style: none;
       padding: 0;
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
     li {
-      background: white;
+      background: rgba(255, 255, 255, 0.07);
       padding: 8px 10px;
       border-radius: 8px;
-      font-size: 12px;
-      margin-bottom: 8px;
-      margin-left: -36px;
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, 0.85);
       text-align: left;
-      line-height: 1.4;
-      text-wrap: wrap;
-
+      line-height: 1.5;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      border-left: 3px solid #818cf8;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 8px;
+      transition: background 0.15s ease;
 
-      /* subtle shadow */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      &:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
 
-      /* truncate long text */
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-
-      /* 🔥 dot indicator */
       &::before {
         content: "";
-        width: 6px;
-        height: 6px;
-        background: #3b82f6;
+        width: 5px;
+        height: 5px;
+        min-width: 5px;
+        background: #818cf8;
         border-radius: 50%;
+        margin-top: 4px;
         flex-shrink: 0;
       }
     }
@@ -140,46 +200,24 @@
 ========================= */
 
 .logout-btn {
-  margin-top: 12px;
-  padding: 6px 12px;
-  background-color: #ef4444;
+  padding: 6px 16px;
+  background: rgba(220, 38, 38, 0.8);
   color: white;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  letter-spacing: 0.03em;
+  transition: background 0.2s ease, transform 0.15s ease;
+  flex-shrink: 0;
 
   &:hover {
-    background-color: #dc2626;
-  }
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 1079px) {
-  .item1-sidebar,
-  .item2-sidebar,
-  .item3-sidebar {
-    font-size: 2.5vw;
-
-    .item1-sidebar-in,
-    .item2-sidebar-in,
-    .item3-sidebar-in {
-      font-size: 2vw;
-    }
+    background: #dc2626;
+    transform: translateY(-1px);
   }
 
-  .item3-sidebar-in li {
-    font-size: 1.5vw;
-  }
-}
-
-@media (max-width: 600px) {
-  .item3-sidebar-in li {
-    font-size: 2vw;
+  &:active {
+    transform: translateY(0);
   }
 }

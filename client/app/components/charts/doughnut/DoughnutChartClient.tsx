@@ -10,6 +10,9 @@ interface Props {
 
 export default function DoughnutChartClient({ data }: Props) {
   const options: AgChartOptions = {
+    title: {
+      text: "Portfolio Allocation",
+    },
     data,
     series: [
       {

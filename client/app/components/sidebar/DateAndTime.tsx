@@ -19,9 +19,11 @@ export default function DateAndTime(): JSX.Element {
 
   return (
     <>
-      Date : {date.toLocaleDateString()}
+      <span className="date-label">
+        {date.toLocaleDateString(undefined, { weekday: "short", year: "numeric", month: "short", day: "numeric" })}
+      </span>
       <div className="item2-sidebar-in">
-        Time : {date.toLocaleTimeString()}
+        {date.toLocaleTimeString()}
       </div>
     </>
   );

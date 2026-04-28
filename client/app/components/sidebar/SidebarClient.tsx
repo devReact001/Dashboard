@@ -27,14 +27,9 @@ export default function SidebarClient({
   return (
     <div className="grid-container-sidebar">
       <div className="item1-sidebar">
-        Welcome User
+        <span className="welcome-label">Welcome User</span>
         <div className="item1-sidebar-in">{user?.name}</div>
-
-        {/* 🔥 NEW LOGOUT BUTTON */}
-        <button
-          onClick={handleLogout}
-          className="logout-btn"
-        >
+        <button onClick={handleLogout} className="logout-btn">
           Logout
         </button>
       </div>
@@ -44,7 +39,7 @@ export default function SidebarClient({
       </div>
 
       <div className="item3-sidebar">
-        Notifications
+        <span className="notifications-title">Notifications</span>
         <div className="item3-sidebar-in">
           <ul>
             {notifications.map((obj) => (

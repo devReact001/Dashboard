@@ -10,6 +10,9 @@ interface Props {
 
 export default function PieChartClient({ data }: Props) {
   const options: AgChartOptions = {
+    title: {
+      text: "Asset Distribution",
+    },
     data,
     series: [
       {
