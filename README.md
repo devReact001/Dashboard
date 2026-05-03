@@ -17,6 +17,19 @@
 
 ---
 
+## 🔑 Demo Login
+
+Use these credentials to log in on any of the live deployments:
+
+| Field | Value |
+|-------|-------|
+| **Email** | `admin@example.com` |
+| **Password** | `admin123` |
+
+> Works on Angular, Next.js, Vue.js, and React Native (Expo) — all share the same backend auth.
+
+---
+
 ## Overview
 
 A production-deployed, multi-platform dashboard built across **four frontend frameworks** — Angular, Next.js, Vue.js, and React Native — all consuming a **single shared REST API** backed by Node.js, Express, and PostgreSQL.
@@ -235,6 +248,8 @@ cd mobile
 npm install
 npx expo start
 ```
+
+> 💡 **Demo credentials for local testing:** `admin@example.com` / `admin123`
 
 ---
 
